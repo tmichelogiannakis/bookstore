@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Route, RouterModule } from '@angular/router';
 import { BooksComponent } from './books.component';
+import { BooksResolver } from './resolvers/books.resolver';
 import { BookListComponent } from './pages/book-list/book-list.component';
 
 const routes: Route[] = [
@@ -11,7 +12,10 @@ const routes: Route[] = [
     children: [
       {
         path: '',
-        component: BookListComponent
+        component: BookListComponent,
+        resolve: {
+          books: BooksResolver
+        }
       }
     ]
   }
