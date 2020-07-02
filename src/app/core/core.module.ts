@@ -9,6 +9,6 @@ import { SidebarContainerComponent } from './components/sidebar-container/sideba
 @NgModule({
   declarations: [HeaderComponent, SidebarContainerComponent, SidebarContainerComponent],
   imports: [BrowserAnimationsModule, SidebarModule.forRoot(), HttpClientModule, SharedModule],
-  exports: [SharedModule, SidebarModule, HeaderComponent, SidebarContainerComponent]
+  exports: [SharedModule, HeaderComponent, SidebarContainerComponent]
 })
 export class CoreModule {}
