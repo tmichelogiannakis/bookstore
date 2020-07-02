@@ -1,0 +1,10 @@
+@import 'node_modules/primeflex/primeflex.scss';
+
+.p-grid {
+  margin-top: 0;
+}
+
+.p-grid > .p-col,
+.p-grid > [class*='p-col-'] {
+  padding: 0 $gutter;
+}

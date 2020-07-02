@@ -1,0 +1,78 @@
+.ui-button {
+  font-size: 0.875rem;
+  box-shadow: none;
+  margin: 0;
+  border: none;
+  border-radius: $border-radius;
+  display: inline-flex;
+  align-items: center;
+  color: #ffffff;
+  background-color: #999999;
+  border-color: #999999;
+  transition: all 0.2s;
+  outline: none;
+
+  &:not([disabled]) {
+    &:hover,
+    &:active {
+      background-color: #aaaaaa;
+    }
+  }
+
+  &[disabled] {
+    background-color: #d7d7d7;
+    cursor: initial;
+  }
+
+  .ui-button-text {
+    line-height: 1.125rem;
+  }
+
+  .ui-button-icon-left,
+  .ui-button-icon-right {
+    position: static;
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1;
+  }
+
+  .ui-button-icon-left {
+    padding-left: 0.25rem;
+  }
+
+  .ui-button-icon-right {
+    padding-right: 0.25rem;
+  }
+}
+
+.ui-button-text-only .ui-button-text {
+  padding: 0.25rem 1rem;
+  width: 100%;
+}
+
+.ui-button-text-icon-left .ui-button-text {
+  padding: 0.25rem 1rem 0.25rem 0.25rem;
+}
+
+.ui-button-text-icon-right .ui-button-text {
+  padding: 0.25rem 0.25rem 0.25rem 1rem;
+}
+
+.ui-button-text-empty .ui-button-text,
+.ui-button-icon-only .ui-button-text {
+  display: none;
+}
+
+.ui-button-icon-only .ui-button-icon-left {
+  padding: 0;
+  width: 2rem;
+  height: 2rem;
+  line-height: 2rem;
+}
+
+// misc
+.ui-button {
+  + .ui-button {
+    margin-left: 0.5rem;
+  }
+}
