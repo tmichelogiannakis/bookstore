@@ -1,12 +1,31 @@
 <h1>Search to find your new book</h1>
 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
 
-<div class="p-grid">
-  <ng-container *ngFor="let book of books$ | async; trackBy: booksTrackByFn">
-    <article class="p-col-12 p-sm-6 p-md-3">
-      <img src="./assets/images/missing-image.jpg" [alt]="book.title" />
-      <h4>{{ book.title }}</h4>
-      <p>by {{ book.author }}</p>
-    </article>
-  </ng-container>
-</div>
+<ng-container *ngIf="books$ | async as books">
+  <p-dataView [value]="books" [layout]="'grid'">
+    <p-header>
+      <div class="p-grid">
+        <div class="p-col-auto">View as <p-dataViewLayoutOptions></p-dataViewLayoutOptions></div>
+        <div class="p-col"></div>
+      </div>
+    </p-header>
+    <ng-template let-book pTemplate="listItem">
+      <article class="p-col-12">
+        <div class="p-grid">
+          <div class="p-col-fixed"><img src="./assets/images/missing-image.jpg" [alt]="book.title" /></div>
+          <div class="p-col">
+            <h4 class="p-mt-0">{{ book.title }}</h4>
+            <p>by {{ book.author }}</p>
+          </div>
+        </div>
+      </article>
+    </ng-template>
+    <ng-template let-book pTemplate="gridItem">
+      <article class="p-col-12 p-sm-6 p-md-3">
+        <img src="./assets/images/missing-image.jpg" [alt]="book.title" />
+        <h4 class="p-mt-0">{{ book.title }}</h4>
+        <p>by {{ book.author }}</p>
+      </article>
+    </ng-template>
+  </p-dataView>
+</ng-container>
