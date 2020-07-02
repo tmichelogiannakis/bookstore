@@ -1,6 +1,6 @@
 @import '~src/styles/variables';
 
-.topbar {
+.portal-topbar {
   position: absolute;
   top: 0;
   left: 0;
@@ -11,10 +11,9 @@
   background-color: $color-primary;
   color: #ffffff;
   font-weight: 700;
-  // padding: 1rem;
 }
 
-.topbar .topbar-left {
+.portal-topbar .portal-topbar-left {
   box-sizing: border-box;
   width: 15rem;
   height: 4rem;
@@ -24,12 +23,12 @@
   position: relative;
 }
 
-.topbar-left .menu-brand {
+.portal-topbar-left .menu-brand {
   color: #ffffff;
   text-decoration: none;
 }
 
-.topbar-left .menu-button {
+.portal-topbar-left .menu-button {
   color: darken($color-primary, 5%);
   display: inline-block;
   vertical-align: middle;
@@ -45,7 +44,7 @@
   }
 }
 
-.content {
+.portal-content {
   display: block;
   width: 100%;
   padding-right: $gutter;
@@ -53,4 +52,16 @@
   margin-right: auto;
   margin-left: auto;
   max-width: 1024px;
+}
+
+ng-sidebar-container {
+  margin-top: 4rem;
+  height: calc(100vh - 4rem);
+}
+
+::ng-deep .portal-sidebar {
+  width: 15rem;
+  border-right: 1px solid #eeeeee;
+  background-color: #f5f5f5;
+  height: calc(100vh - 4rem);
 }

@@ -1,9 +1,35 @@
-<div class="topbar">
-  <div class="topbar-left">
+<div class="portal-topbar">
+  <div class="portal-topbar-left">
     <a [routerLink]="['/']" class="menu-brand">Bookstore</a>
-    <a class="menu-button" pButton [icon]="'pi pi-angle-left'"></a>
+    <a class="menu-button" pButton [icon]="'pi pi-angle-left'" (click)="toggleSidebar()"></a>
   </div>
 </div>
-<div class="content">
-  <router-outlet></router-outlet>
-</div>
+
+<ng-sidebar-container>
+  <!-- A sidebar -->
+  <ng-sidebar [(opened)]="opened" [mode]="'push'" [sidebarClass]="'portal-sidebar'">
+    <div class="ui-menu">
+      <ul>
+        <li class="ui-menuitem">
+          <a class="ui-menuitem-link" [routerLinkActive]="'ui-menuitem-link-active'">
+            <span class="ui-menuitem-icon pi pi-home"></span>
+            <span class="ui-menuitem-text">Dashboard</span>
+          </a>
+        </li>
+        <li class="ui-menuitem">
+          <a class="ui-menuitem-link" [routerLink]="['books']" [routerLinkActive]="'ui-menuitem-link-active'">
+            <span class="ui-menuitem-icon pi pi-bookmark"></span>
+            <span class="ui-menuitem-text">Books</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </ng-sidebar>
+
+  <!-- Page content -->
+  <div ng-sidebar-content>
+    <div class="portal-content">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</ng-sidebar-container>
