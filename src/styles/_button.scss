@@ -46,16 +46,16 @@
 }
 
 .ui-button-text-only .ui-button-text {
-  padding: 0.25rem 1rem;
+  padding: 0.4375rem 1rem;
   width: 100%;
 }
 
 .ui-button-text-icon-left .ui-button-text {
-  padding: 0.25rem 1rem 0.25rem 0.25rem;
+  padding: 0.4375rem 1rem 0.4375rem 0.4375rem;
 }
 
 .ui-button-text-icon-right .ui-button-text {
-  padding: 0.25rem 0.25rem 0.25rem 1rem;
+  padding: 0.4375rem 0.4375rem 0.4375rem 1rem;
 }
 
 .ui-button-text-empty .ui-button-text,
@@ -68,6 +68,24 @@
   width: 2rem;
   height: 2rem;
   line-height: 2rem;
+}
+
+// Contextual colors
+.ui-button.ui-button-primary {
+  color: #ffffff;
+  background-color: $color-primary;
+
+  &:not([disabled]) {
+    &:hover,
+    &:active {
+      background-color: darken($color-primary, 7.5%);
+    }
+  }
+
+  &[disabled] {
+    background-color: #d7d7d7;
+    cursor: initial;
+  }
 }
 
 // misc
