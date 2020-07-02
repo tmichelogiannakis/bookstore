@@ -1,1 +1,4 @@
-<router-outlet></router-outlet>
+<app-header [opened]="opened" (toggleSidebar)="onToggleSidebar()"></app-header>
+<app-sidebar-container [opened]="opened">
+  <router-outlet></router-outlet>
+</app-sidebar-container>
