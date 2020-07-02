@@ -1,7 +1,13 @@
 <div class="portal-topbar">
   <div class="portal-topbar-left">
     <a [routerLink]="['/']" class="menu-brand">Bookstore</a>
-    <a class="menu-button" pButton [icon]="'pi pi-angle-left'" (click)="toggleSidebar()"></a>
+    <a class="menu-button ui-button ui-button-icon-only" (click)="toggleSidebar()">
+      <span
+        aria-hidden="true"
+        class="ui-button-icon-left ui-clickable pi pi-angle-left"
+        [@menuButtonState]="opened ? 'right' : 'left'"
+      ></span>
+    </a>
   </div>
 </div>
 
@@ -11,7 +17,12 @@
     <div class="ui-menu">
       <ul>
         <li class="ui-menuitem">
-          <a class="ui-menuitem-link" [routerLinkActive]="'ui-menuitem-link-active'">
+          <a
+            class="ui-menuitem-link"
+            [routerLink]="['']"
+            [routerLinkActive]="'ui-menuitem-link-active'"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
             <span class="ui-menuitem-icon pi pi-home"></span>
             <span class="ui-menuitem-text">Dashboard</span>
           </a>
