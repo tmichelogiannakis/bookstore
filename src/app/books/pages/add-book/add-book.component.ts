@@ -1,15 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
+import { Subject } from 'rxjs';
+import { BooksService } from '../../services/books.service';
+import { takeUntil, filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-add-book',
   templateUrl: './add-book.component.html',
   styleUrls: ['./add-book.component.scss']
 })
-export class AddBookComponent implements OnInit {
+export class AddBookComponent implements OnInit, OnDestroy {
+  private unsubscribe: Subject<void> = new Subject();
   form: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private booksService: BooksService
+  ) {
     this.form = this.fb.group({
       title: this.fb.control(null, Validators.required),
       subtitle: this.fb.control(null, Validators.required),
@@ -23,13 +33,30 @@ export class AddBookComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    // If it is a NavigationEnd event re-initalise the component
+    this.router.events
+      .pipe(
+        filter((e) => e instanceof NavigationEnd),
+        takeUntil(this.unsubscribe)
+      )
+      .subscribe(() => {
+        this.form.reset();
+        this.form.updateValueAndValidity();
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribe.next();
+    this.unsubscribe.complete();
+  }
 
   submit() {
     this.form.markAllAsTouched();
     if (this.form.valid) {
       const value = this.form.value;
       console.log({ value });
+      this.router.navigate(['../'], { relativeTo: this.activatedRoute });
     }
   }
 }
