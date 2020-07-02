@@ -1,0 +1,12 @@
+<div class="portal-topbar">
+  <div class="portal-topbar-left">
+    <a [routerLink]="['/']" class="menu-brand">Bookstore</a>
+    <a class="menu-button ui-button ui-button-icon-only" (click)="onClick()">
+      <span
+        aria-hidden="true"
+        class="ui-button-icon-left ui-clickable pi pi-angle-left"
+        [@menuButtonState]="opened ? 'right' : 'left'"
+      ></span>
+    </a>
+  </div>
+</div>

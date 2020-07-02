@@ -1,0 +1,28 @@
+.ui-menu {
+  padding: 0;
+  width: 100%;
+}
+
+.ui-menu .ui-menuitem {
+  margin: 0;
+}
+
+.ui-menu .ui-menuitem-link {
+  padding: 0.75rem 0.75rem;
+  font-weight: normal;
+  border-radius: 0;
+  outline: none;
+  &.ui-menuitem-link-active {
+    background-color: #eeeeee;
+    color: #000000;
+  }
+}
+
+.ui-menu .ui-menuitem-link .ui-menuitem-icon {
+  margin-right: 0.5rem;
+}
+
+.ui-menu .ui-menuitem-link:not(.ui-state-disabled):hover {
+  background-color: #eeeeee;
+  color: #000000;
+}
