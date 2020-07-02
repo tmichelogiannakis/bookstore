@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { Route, RouterModule } from '@angular/router';
+import { SharedModule } from '../shared/shared.module';
 import { BooksComponent } from './books.component';
 import { BooksResolver } from './resolvers/books.resolver';
 import { BookListComponent } from './pages/book-list/book-list.component';
@@ -23,6 +23,6 @@ const routes: Route[] = [
 
 @NgModule({
   declarations: [BooksComponent, BookListComponent],
-  imports: [CommonModule, RouterModule.forChild(routes)]
+  imports: [SharedModule, RouterModule.forChild(routes)]
 })
 export class BooksModule {}
