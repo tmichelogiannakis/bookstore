@@ -1,4 +1,7 @@
-<h1>Search to find your new book</h1>
+<div class="p-grid p-align-center">
+  <div class="p-col"><h1>Search to find your new book</h1></div>
+  <div class="p-col-fixed"><a pButton [icon]="'pi pi-plus'" label="Add Book" class="ui-button-primary" [routerLink]="['add']"></a></div>
+</div>
 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
 
 <ng-container *ngIf="books$ | async as books">
@@ -6,7 +9,7 @@
     <p-header>
       <div class="p-grid">
         <div class="p-col-auto">
-          <a pButton label="Add Book" [routerLink]="['add']" class="ui-button-primary"></a>
+          <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
         </div>
         <div class="p-col">
           <div class="p-grid p-align-center">
@@ -16,7 +19,6 @@
             <div class="p-col"><input type="search" pInputText (input)="filterBooksFn($event)" /></div>
           </div>
         </div>
-        <div class="p-col-auto">View as <p-dataViewLayoutOptions></p-dataViewLayoutOptions></div>
       </div>
     </p-header>
     <ng-template let-book pTemplate="listItem">
