@@ -50,4 +50,9 @@
   </div>
 </form>
 
-
+<p-confirmDialog #cd appendTo="body" styleClass="ui-dialog-info" [closable]="false">
+  <p-footer>
+    <button pButton class="ui-button-primary" label="Yes" (click)="cd.accept()"></button>
+    <button pButton label="No" (click)="cd.reject()"></button>
+  </p-footer>
+</p-confirmDialog>

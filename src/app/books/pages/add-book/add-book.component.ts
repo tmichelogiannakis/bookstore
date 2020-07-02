@@ -4,11 +4,13 @@ import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { Subject } from 'rxjs';
 import { BooksService } from '../../services/books.service';
 import { takeUntil, filter } from 'rxjs/operators';
+import { ConfirmationService } from 'primeng/api';
 
 @Component({
   selector: 'app-add-book',
   templateUrl: './add-book.component.html',
-  styleUrls: ['./add-book.component.scss']
+  styleUrls: ['./add-book.component.scss'],
+  providers: [ConfirmationService]
 })
 export class AddBookComponent implements OnInit, OnDestroy {
   private unsubscribe: Subject<void> = new Subject();
@@ -18,6 +20,7 @@ export class AddBookComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private router: Router,
     private activatedRoute: ActivatedRoute,
+    public confirmationService: ConfirmationService,
     private booksService: BooksService
   ) {
     this.form = this.fb.group({
