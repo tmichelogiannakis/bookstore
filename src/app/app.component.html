@@ -1,35 +1,4 @@
 <app-header [opened]="opened" (toggleSidebar)="onToggleSidebar()"></app-header>
-
-<ng-sidebar-container>
-  <!-- A sidebar -->
-  <ng-sidebar [(opened)]="opened" [mode]="'push'" [sidebarClass]="'portal-sidebar'">
-    <div class="ui-menu">
-      <ul>
-        <li class="ui-menuitem">
-          <a
-            class="ui-menuitem-link"
-            [routerLink]="['']"
-            [routerLinkActive]="'ui-menuitem-link-active'"
-            [routerLinkActiveOptions]="{ exact: true }"
-          >
-            <span class="ui-menuitem-icon pi pi-home"></span>
-            <span class="ui-menuitem-text">Dashboard</span>
-          </a>
-        </li>
-        <li class="ui-menuitem">
-          <a class="ui-menuitem-link" [routerLink]="['books']" [routerLinkActive]="'ui-menuitem-link-active'">
-            <span class="ui-menuitem-icon pi pi-bookmark"></span>
-            <span class="ui-menuitem-text">Books</span>
-          </a>
-        </li>
-      </ul>
-    </div>
-  </ng-sidebar>
-
-  <!-- Page content -->
-  <div ng-sidebar-content>
-    <div class="portal-content">
-      <router-outlet></router-outlet>
-    </div>
-  </div>
-</ng-sidebar-container>
+<app-sidebar-container [opened]="opened">
+  <router-outlet></router-outlet>
+</app-sidebar-container>
