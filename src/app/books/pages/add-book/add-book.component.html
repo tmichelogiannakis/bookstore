@@ -1,3 +1,46 @@
-<h1>
-  Add new Book
-</h1>
+<h1>Add new Book</h1>
+
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <div class="ui-fluid p-formgrid p-grid">
+    <div class="p-field p-col-12 p-md-6">
+      <label for="title">Title</label>
+      <input id="title" type="text" pInputText formControlName="title" />
+    </div>
+    <div class="p-field p-col-12 p-md-6">
+      <label for="subtitle">Subtitle</label>
+      <input id="subtitle" type="text" pInputText formControlName="subtitle" />
+    </div>
+    <div class="p-field p-col-12">
+      <label for="description">Description</label>
+      <textarea id="description" type="text" rows="3" pInputTextarea formControlName="description"></textarea>
+    </div>
+    <div class="p-field p-col-12 p-md-6">
+      <label for="isbn">ISBN</label>
+      <input id="isbn" type="text" pInputText formControlName="isbn" />
+    </div>
+    <div class="p-field p-col-12 p-md-6">
+      <label for="isbn">Pages</label>
+      <input id="pages" type="number" pInputText formControlName="pages" />
+    </div>
+    <div class="p-field p-col-12 p-md-6">
+      <label for="published">Published</label>
+      <input id="published" type="text" pInputText formControlName="published" />
+    </div>
+    <div class="p-field p-col-12 p-md-6">
+      <label for="publisher">Publisher</label>
+      <input id="publisher" type="text" pInputText formControlName="publisher" />
+    </div>
+    <div class="p-field p-col-12 p-md-6">
+      <label for="author">Author</label>
+      <input id="author" type="text" pInputText formControlName="author" />
+    </div>
+    <div class="p-field p-col-12 p-md-6">
+      <label for="website">Website</label>
+      <input id="website" type="text" pInputText formControlName="website" />
+    </div>
+  </div>
+  <div>
+    <button pButton type="submit" class="ui-button-primary" label="Save"></button>
+    <button pButton type="button" label="Cancel" [routerLink]="['../']"></button>
+  </div>
+</form>
