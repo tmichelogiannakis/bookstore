@@ -8,7 +8,7 @@ import { Book } from '../../core/models/book.model';
 })
 export class BooksService {
   readonly endpoints = {
-    books: '/assets/data/books.json'
+    books: './assets/data/books.json'
   };
 
   constructor(private http: HttpClient) {}

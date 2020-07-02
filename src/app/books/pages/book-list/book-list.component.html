@@ -1,2 +1,12 @@
 <h1>Search to find your new book</h1>
 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
+
+<div class="p-grid">
+  <ng-container *ngFor="let book of books$ | async; trackBy: booksTrackByFn">
+    <article class="p-col-12 p-sm-6 p-md-3">
+      <img src="./assets/images/missing-image.jpg" [alt]="book.title" />
+      <h4>{{ book.title }}</h4>
+      <p>by {{ book.author }}</p>
+    </article>
+  </ng-container>
+</div>
