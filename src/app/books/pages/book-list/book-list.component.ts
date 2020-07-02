@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Book } from '../../../core/models/book.model';
+import { DataView } from 'primeng/dataview';
 
 @Component({
   selector: 'app-book-list',
@@ -10,6 +11,8 @@ import { Book } from '../../../core/models/book.model';
   styleUrls: ['./book-list.component.scss']
 })
 export class BookListComponent implements OnInit {
+  @ViewChild('dv') dv: DataView;
+
   books$: Observable<Book[]>;
 
   constructor(private route: ActivatedRoute) {}
@@ -20,5 +23,10 @@ export class BookListComponent implements OnInit {
 
   booksTrackByFn(index: number, item: Book) {
     return item.isbn;
+  }
+
+  // InputEvent from input field to filter book in dataview
+  filterBooksFn(event: any) {
+    this.dv.filter(event.target.value, 'contains');
   }
 }
