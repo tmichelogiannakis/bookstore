@@ -1,1 +1,9 @@
-<router-outlet></router-outlet>
+<div class="topbar">
+  <div class="topbar-left">
+    <a [routerLink]="['/']" class="menu-brand">Bookstore</a>
+    <a class="menu-button" pButton [icon]="'pi pi-angle-left'"></a>
+  </div>
+</div>
+<div class="content">
+  <router-outlet></router-outlet>
+</div>

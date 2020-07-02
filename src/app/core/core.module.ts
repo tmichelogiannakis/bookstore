@@ -4,6 +4,7 @@ import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [],
-  imports: [HttpClientModule, SharedModule]
+  imports: [HttpClientModule, SharedModule],
+  exports: [SharedModule]
 })
 export class CoreModule {}
