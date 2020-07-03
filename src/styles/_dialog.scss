@@ -1,0 +1,53 @@
+.ui-dialog-mask {
+  background: rgba(0, 0, 0, 0.32);
+}
+
+.ui-dialog {
+  padding: 0;
+  border-radius: $border-radius;
+  box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.16);
+}
+
+.ui-dialog .ui-dialog-content {
+  background-color: #ffffff;
+  border: none;
+  padding: 0.5rem 0.5rem;
+  border-top: 0 none;
+  border-bottom: 0 none;
+}
+
+.ui-dialog .ui-dialog-footer {
+  text-align: center;
+  border-radius: 0 0 $border-radius $border-radius;
+  border: none;
+  border-top: 0 none;
+  background-color: #ffffff;
+  padding: 0 1rem 1rem 1rem;
+  margin: 0;
+  position: relative;
+  top: -1px;
+  text-align: right;
+}
+
+.ui-dialog .ui-dialog-footer button {
+  margin: 0 0.5rem 0 0;
+  width: auto;
+}
+
+.ui-confirmdialog.ui-dialog {
+  width: 30rem;
+}
+
+.ui-confirmdialog.ui-dialog .ui-dialog-content {
+  padding: 1rem 1rem;
+}
+
+//
+.ui-dialog-headless {
+  .ui-dialog-titlebar {
+    display: none;
+  }
+  .ui-dialog-content {
+    border-radius: $border-radius $border-radius 0 0;
+  }
+}
