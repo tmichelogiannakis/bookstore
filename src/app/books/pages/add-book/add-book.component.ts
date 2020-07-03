@@ -87,14 +87,9 @@ export class AddBookComponent implements OnInit, OnDestroy {
         // validate numeric value 13 digits long
         Validators.pattern('^[0-9]{13}')
       ]),
-      isbn10: this.fb.control(null, [
-        Validators.required,
-        // validate numeric value 10 digits long
-        Validators.pattern('^[0-9]{10}')
-      ]),
-      // validate numeric value up to 9999
-      pages: this.fb.control(null, [Validators.required, Validators.pattern('^[0-9]{1,4}$')]),
-      // validate from 1900 until today
+      // validate from 1 to 9999
+      pages: this.fb.control(null, [Validators.required, CustomValidators.range(1, 9999)]),
+      // validate from 1900 to today's year
       published: this.fb.control(null, [Validators.required, CustomValidators.range(1900, dt.getFullYear())]),
       publisher: this.fb.control(null, [Validators.required, Validators.minLength(5), Validators.maxLength(60)]),
       // validate website address

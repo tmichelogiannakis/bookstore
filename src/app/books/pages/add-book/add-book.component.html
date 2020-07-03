@@ -4,19 +4,46 @@
     <a pButton [icon]="'pi pi-plus'" label="Add Another Book" class="ui-button-primary" [routerLink]="['./']"></a>
   </div>
 </div>
-
+<pre>{{ form.valid }}</pre>
 <pre>{{ form.value | json }}</pre>
 
-<form [formGroup]="form" (ngSubmit)="submit()">
+<form [formGroup]="form" (ngSubmit)="submit()" class="p-mb-3">
   <div class="p-grid">
-    <div class="p-col-12 p-md-6">
+    <div class="p-col-12 p-sm-6">
       <div class="p-field">
         <label for="title">Title</label>
-        <input id="title" type="text" pInputText formControlName="title" />
+        <input id="title" type="text" pInputText formControlName="title" aria-describedby="title-help" />
+        <ng-container *ngIf="form.controls.title.touched">
+          <ng-container *ngIf="form.controls.title.errors as errors">
+            <small id="title-help" class="invalid-feedback">
+              <ng-container *ngIf="errors?.required">
+                Fill out the title
+              </ng-container>
+              <ng-container *ngIf="errors?.maxlength">
+                The title is too long (max {{ errors?.maxlength?.requiredLength }} characters allowed).
+              </ng-container>
+              <ng-container *ngIf="errors?.pattern">
+                Only letter, numbers and @"#&*! are allowed
+              </ng-container>
+            </small>
+          </ng-container>
+        </ng-container>
       </div>
       <div class="p-field">
         <label for="subtitle">Subtitle</label>
-        <input id="subtitle" type="text" pInputText formControlName="subtitle" />
+        <input id="subtitle" type="text" pInputText formControlName="subtitle" aria-describedby="subtitle-help" />
+        <ng-container *ngIf="form.controls.subtitle.touched">
+          <ng-container *ngIf="form.controls.subtitle.errors as errors">
+            <small id="subtitle-help" class="invalid-feedback">
+              <ng-container *ngIf="errors?.maxlength">
+                The subtitle is too long (max {{ errors?.maxlength?.requiredLength }} characters allowed).
+              </ng-container>
+              <ng-container *ngIf="errors?.pattern">
+                Only letter, numbers and @"#&*! are allowed
+              </ng-container>
+            </small>
+          </ng-container>
+        </ng-container>
       </div>
       <div class="p-field">
         <label for="categories">Categories</label>
@@ -32,10 +59,17 @@
       </div>
       <div class="p-field">
         <label for="isbn">ISBN</label>
-        <input id="isbn" type="text" pInputText formControlName="isbn" />
+        <input id="isbn" type="text" pInputText formControlName="isbn" aria-describedby="isbn-help" />
+        <ng-container *ngIf="form.controls.isbn.touched">
+          <ng-container *ngIf="form.controls.isbn.errors as errors">
+            <small id="isbn-help" class="invalid-feedback">
+              ISBN is a 13-digit long numeric code
+            </small>
+          </ng-container>
+        </ng-container>
       </div>
     </div>
-    <div class="p-col-12 p-md-6">
+    <div class="p-col-12 p-sm-6">
       <div class="p-field">
         <label for="title">Image</label>
         <div>
@@ -43,42 +77,124 @@
         </div>
       </div>
     </div>
-  </div>
-  <div class="p-grid">
     <div class="p-col-12">
       <div class="p-field">
         <label for="description">Description</label>
-        <textarea id="description" type="text" rows="3" pInputTextarea formControlName="description"></textarea>
+        <textarea
+          id="description"
+          type="text"
+          rows="4"
+          pInputTextarea
+          formControlName="description"
+          aria-describedby="description-help"
+        ></textarea>
+        <ng-container *ngIf="form.controls.description.touched">
+          <ng-container *ngIf="form.controls.description.errors as errors">
+            <small id="description-help" class="invalid-feedback">
+              <ng-container *ngIf="errors?.required">
+                Fill out the description
+              </ng-container>
+              <ng-container *ngIf="errors?.maxlength">
+                The description is too long (max {{ errors?.maxlength?.requiredLength }} characters allowed).
+              </ng-container>
+              <ng-container *ngIf="errors?.pattern">
+                Description should start with a capital letter
+              </ng-container>
+            </small>
+          </ng-container>
+        </ng-container>
       </div>
     </div>
     <div class="p-col-12">
       <div class="p-field">
         <label for="authors">Author(s)</label>
-        <p-chips formControlName="authors" [max]="3" [inputId]="'authors'"></p-chips>
+        <p-chips formControlName="authors" [max]="3" [inputId]="'authors'" aria-describedby="authors-help"></p-chips>
+        <ng-container *ngIf="form.controls.authors.touched">
+          <ng-container *ngIf="form.controls.authors.errors as errors">
+            <small id="authors-help" class="invalid-feedback">
+              <ng-container *ngIf="errors?.required">
+                Fill out at least one author
+              </ng-container>
+            </small>
+          </ng-container>
+        </ng-container>
       </div>
     </div>
-  </div>
-
-  <div class="p-formgrid p-grid">
-    <div class="p-field p-col-12 p-md-6"></div>
-    <div class="p-field p-col-12 p-md-6"></div>
-
-    <div class="p-field p-col-12 p-md-6">
-      <label for="isbn">Pages</label>
-      <input id="pages" type="number" pInputText formControlName="pages" />
+    <div class="p-col-12 p-sm-6">
+      <div class="p-field">
+        <label for="publisher">Publisher</label>
+        <input id="publisher" type="text" pInputText formControlName="publisher" aria-describedby="publisher-help" />
+        <ng-container *ngIf="form.controls.publisher.touched">
+          <ng-container *ngIf="form.controls.publisher.errors as errors">
+            <small id="publisher-help" class="invalid-feedback">
+              <ng-container *ngIf="errors?.required">
+                Fill out the publisher
+              </ng-container>
+              <ng-container *ngIf="errors?.maxlength">
+                The publisher is too long (max allowed are {{ errors?.maxlength?.requiredLength }} characters).
+              </ng-container>
+              <ng-container *ngIf="errors?.minlength">
+                The publisher is too short (min allowed are {{ errors?.minlength?.requiredLength }} characters).
+              </ng-container>
+            </small>
+          </ng-container>
+        </ng-container>
+      </div>
     </div>
-    <div class="p-field p-col-12 p-md-6">
-      <label for="published">Published</label>
-      <input id="published" type="text" pInputText formControlName="published" />
+    <div class="p-col-12 p-sm-6">
+      <div class="p-grid">
+        <div class="p-col-12 p-sm-6">
+          <div class="p-field">
+            <label for="published">Published Year</label>
+            <input id="published" type="number" pInputText formControlName="published" aria-describedby="published-help" />
+            <ng-container *ngIf="form.controls.published.touched">
+              <ng-container *ngIf="form.controls.published.errors as errors">
+                <small id="published-help" class="invalid-feedback">
+                  <ng-container *ngIf="errors?.required">
+                    Fill out the published year
+                  </ng-container>
+                  <ng-container *ngIf="errors?.range">
+                    Enter a valid year ({{ errors?.range?.min }} - {{ errors?.range?.max }})
+                  </ng-container>
+                </small>
+              </ng-container>
+            </ng-container>
+          </div>
+        </div>
+        <div class="p-col-12 p-sm-6">
+          <div class="p-field">
+            <label for="pages">Amount of Pages</label>
+            <input id="pages" type="number" pInputText formControlName="pages" aria-describedby="pages-help" />
+            <ng-container *ngIf="form.controls.pages.touched">
+              <ng-container *ngIf="form.controls.pages.errors as errors">
+                <small id="pages-help" class="invalid-feedback">
+                  <ng-container *ngIf="errors?.required">
+                    Fill out the number of pages
+                  </ng-container>
+                  <ng-container *ngIf="errors?.range">
+                    Enter a valid amount ({{ errors?.range?.min }} - {{ errors?.range?.max }})
+                  </ng-container>
+                </small>
+              </ng-container>
+            </ng-container>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="p-field p-col-12 p-md-6">
-      <label for="publisher">Publisher</label>
-      <input id="publisher" type="text" pInputText formControlName="publisher" />
-    </div>
-    <!--  -->
-    <div class="p-field p-col-12 p-md-6">
-      <label for="website">Website</label>
-      <input id="website" type="text" pInputText formControlName="website" />
+    <div class="p-col-12 p-sm-6">
+      <div class="p-field">
+        <label for="website">Website</label>
+        <input id="website" type="text" pInputText formControlName="website" aria-describedby="website-help" />
+        <ng-container *ngIf="form.controls.website.touched">
+          <ng-container *ngIf="form.controls.website.errors as errors">
+            <small id="website-help" class="invalid-feedback">
+              <ng-container *ngIf="errors?.pattern">
+                Fill out a valid web address
+              </ng-container>
+            </small>
+          </ng-container>
+        </ng-container>
+      </div>
     </div>
   </div>
   <div>
