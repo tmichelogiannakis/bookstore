@@ -12,3 +12,11 @@
 .p-field > label {
   color: #212121;
 }
+
+.ng-invalid.ng-touched {
+  border-color: #f44336;
+
+  ~ .invalid-feedback {
+    color: #f44336;
+  }
+}
