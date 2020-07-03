@@ -23,16 +23,41 @@ export class AddBookComponent implements OnInit, OnDestroy {
     public confirmationService: ConfirmationService,
     private booksService: BooksService
   ) {
+    const dt = new Date();
+
     this.form = this.fb.group({
-      title: this.fb.control(null, Validators.required),
-      subtitle: this.fb.control(null, Validators.required),
-      description: this.fb.control(null, Validators.required),
-      isbn: this.fb.control(null, Validators.required),
-      pages: this.fb.control(null, Validators.required),
-      published: this.fb.control(null, Validators.required),
-      publisher: this.fb.control(null, Validators.required),
-      author: this.fb.control(null, Validators.required),
-      website: this.fb.control(null, Validators.required)
+      title: this.fb.control(null, [
+        Validators.required,
+        Validators.maxLength(120),
+        // allow letters, digits and @"#&*! special chars up to 120 length
+        Validators.pattern(`^(?!d+$)(?:[a-zA-Z0-9][a-zA-Z0-9 @"#&*!]*)?$`)
+      ]),
+      subtitle: this.fb.control(null, [
+        Validators.required,
+        Validators.maxLength(120),
+        // allow letters, digits and @"#&*! special chars up to 120 length
+        Validators.pattern(`^(?!d+$)(?:[a-zA-Z0-9][a-zA-Z0-9 @"#&*!]*)?$`)
+      ]),
+      description: this.fb.control(null, [Validators.required, Validators.maxLength(512)]),
+      categories: this.fb.array([]),
+      authors: this.fb.control([], [Validators.required]),
+      isbn: this.fb.control(null, [
+        Validators.required,
+        // validate numeric value 13 digits long
+        Validators.pattern('^[0-9]{13}')
+      ]),
+      isbn10: this.fb.control(null, [
+        Validators.required,
+        // validate numeric value 10 digits long
+        Validators.pattern('^[0-9]{10}')
+      ]),
+      // validate numeric value up to 9999
+      pages: this.fb.control(null, [Validators.required, Validators.pattern('^[0-9]{1,4}$')]),
+      // validate from 1900 until today
+      published: this.fb.control(null, [Validators.required, Validators.min(1900), Validators.max(dt.getFullYear())]),
+      publisher: this.fb.control(null, [Validators.required, Validators.minLength(5), Validators.maxLength(60)]),
+      // validate website address
+      website: this.fb.control(null, Validators.pattern(`(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?`))
     });
   }
 
