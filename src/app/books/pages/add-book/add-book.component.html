@@ -19,12 +19,29 @@
         <input id="subtitle" type="text" pInputText formControlName="subtitle" />
       </div>
       <div class="p-field">
+        <label for="categories">Categories</label>
+        <p-multiSelect
+          [options]="categorySelectItems"
+          formControlName="categories"
+          [selectionLimit]="4"
+          [maxSelectedLabels]="4"
+          [inputId]="'categories'"
+          [defaultLabel]="'Select'"
+          [showToggleAll]="false"
+        ></p-multiSelect>
+      </div>
+      <div class="p-field">
         <label for="isbn">ISBN</label>
         <input id="isbn" type="text" pInputText formControlName="isbn" />
       </div>
     </div>
     <div class="p-col-12 p-md-6">
-      <img src="./assets/images/missing-image.jpg" />
+      <div class="p-field">
+        <label for="title">Image</label>
+        <div>
+          <img src="./assets/images/missing-image.jpg" />
+        </div>
+      </div>
     </div>
   </div>
   <div class="p-grid">
@@ -37,7 +54,7 @@
     <div class="p-col-12">
       <div class="p-field">
         <label for="authors">Author(s)</label>
-        <p-chips formControlName="authors" [max]="3"></p-chips>
+        <p-chips formControlName="authors" [max]="3" [inputId]="'authors'"></p-chips>
       </div>
     </div>
   </div>

@@ -4,7 +4,7 @@ import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { Subject } from 'rxjs';
 import { BooksService } from '../../services/books.service';
 import { takeUntil, filter } from 'rxjs/operators';
-import { ConfirmationService } from 'primeng/api';
+import { ConfirmationService, SelectItem } from 'primeng/api';
 
 @Component({
   selector: 'app-add-book',
@@ -14,7 +14,43 @@ import { ConfirmationService } from 'primeng/api';
 })
 export class AddBookComponent implements OnInit, OnDestroy {
   private unsubscribe: Subject<void> = new Subject();
+
   form: FormGroup;
+
+  categorySelectItems: SelectItem[] = [
+    {
+      label: 'Classic',
+      value: 1
+    },
+    {
+      label: 'Crime/detective',
+      value: 2
+    },
+    {
+      label: 'Epic',
+      value: 3
+    },
+    {
+      label: 'Fable',
+      value: 4
+    },
+    {
+      label: 'Fairy tale',
+      value: 5
+    },
+    {
+      label: 'Fantasy',
+      value: 6
+    },
+    {
+      label: 'Folktale',
+      value: 7
+    },
+    {
+      label: 'Gothic fiction',
+      value: 8
+    }
+  ];
 
   constructor(
     private fb: FormBuilder,
@@ -39,7 +75,7 @@ export class AddBookComponent implements OnInit, OnDestroy {
         Validators.pattern(`^(?!d+$)(?:[a-zA-Z0-9][a-zA-Z0-9 @"#&*!]*)?$`)
       ]),
       description: this.fb.control(null, [Validators.required, Validators.maxLength(512)]),
-      categories: this.fb.array([]),
+      categories: this.fb.control([]),
       authors: this.fb.control([], [Validators.required]),
       isbn: this.fb.control(null, [
         Validators.required,
