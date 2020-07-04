@@ -1,10 +1,11 @@
 <div class="p-grid p-align-center">
   <div class="p-col"><h1>Search to find your new book</h1></div>
-  <div class="p-col-fixed"><a pButton [icon]="'pi pi-plus'" label="Add Book" class="ui-button-primary" [routerLink]="['add']"></a></div>
+  <div class="p-col-fixed">
+    <a pButton [icon]="'pi pi-plus'" label="Add Book" class="ui-button-flat ui-button-primary" [routerLink]="['add']"></a>
+  </div>
 </div>
 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
-
-<ng-container *ngIf="books$ | async as books">
+<div class="p-mb-3" *ngIf="books$ | async as books">
   <p-dataView #dv [value]="books" [layout]="'grid'" [filterBy]="'title,author'">
     <p-header>
       <div class="p-grid">
@@ -26,18 +27,42 @@
         <div class="p-grid">
           <div class="p-col-fixed"><img src="./assets/images/missing-image.jpg" [alt]="book.title" /></div>
           <div class="p-col">
-            <h4 class="p-mt-0">{{ book.title }}</h4>
-            <p>by {{ book.author | array: ', ' }}</p>
+            <div class="tile-book-content">
+              <div>
+                <h4 class="tile-book-title">{{ book.title }}</h4>
+                <p class="tile-book-author">by {{ book.author | array: ', ' }}</p>
+              </div>
+              <div class="p-grid p-nogutter p-justify-end">
+                <div class="p-pr-2">
+                  <a pButton [routerLink]="[book.isbn, 'view']" [label]="'DETAILS'"></a>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </article>
     </ng-template>
     <ng-template let-book pTemplate="gridItem">
-      <article class="p-col-12 p-sm-4 p-md-3">
-        <img src="./assets/images/missing-image.jpg" [alt]="book.title" />
-        <h4 class="p-mt-0">{{ book.title }}</h4>
-        <p>by {{ book.author | array: ', ' }}</p>
-      </article>
+      <div class="p-col-12 p-sm-6 p-md-4 p-p-1">
+        <article class="p-grid p-nogutter tile-book">
+          <div class="p-col-fixed tile-book-image">
+            <img src="./assets/images/missing-image.jpg" [alt]="book.title" />
+          </div>
+          <div class="p-col">
+            <div class="tile-book-content">
+              <div>
+                <h4 class="tile-book-title">{{ book.title }}</h4>
+                <p class="tile-book-author">by {{ book.author | array: ', ' }}</p>
+              </div>
+              <div class="p-grid p-nogutter p-justify-end">
+                <div class="p-pr-2">
+                  <a pButton class="ui-button-sm" [routerLink]="[book.isbn, 'view']" [label]="'DETAILS'"></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
     </ng-template>
   </p-dataView>
-</ng-container>
+</div>
