@@ -4,6 +4,7 @@ import { Observable, of } from 'rxjs';
 import { delay, mergeMap, tap } from 'rxjs/operators';
 import { Book } from '../models/book.model';
 import * as booksJSON from './data/books.json';
+import * as bookGenresJSON from './data/book-genres.json';
 
 const retrieveBooks = () => {
   const booksString = localStorage.getItem('books');
@@ -27,6 +28,10 @@ export class HttpMockRequestInterceptorService implements HttpInterceptor {
 
     return of(null).pipe(
       mergeMap(() => {
+        if (url.endsWith('/book-genres') && method === 'GET') {
+          return of(new HttpResponse({ status: 200, body: (bookGenresJSON as any).default }));
+        }
+
         if (url.endsWith('/books') && method === 'GET') {
           return of(new HttpResponse({ status: 200, body: this.books }));
         }
@@ -37,7 +42,14 @@ export class HttpMockRequestInterceptorService implements HttpInterceptor {
               this.storeBook(data.body);
             })
           );
-        }        
+        }
+
+        if (url.match(/\/books\/\d+$/) && method === 'GET') {
+          const urlParts = url.split('/');
+          const isbn = urlParts[urlParts.length - 1];
+          const book = this.books.find((book) => book.isbn === isbn);
+          return of(new HttpResponse({ status: 200, body: book }));
+        }
 
         return next.handle(request);
       }),

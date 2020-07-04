@@ -12,22 +12,24 @@ const books: Book[] = [
     title: 'title1',
     subtitle: 'subtitle1',
     author: 'author1',
-    published: new Date(),
+    published: new Date().toISOString(),
     publisher: 'publisher1',
     pages: 111,
     description: 'description1',
-    website: 'http://example.com/'
+    website: 'http://example.com/',
+    categories: []
   },
   {
     isbn: 'isbn2',
     title: 'title2',
     subtitle: 'subtitle2',
     author: 'author2',
-    published: new Date(),
+    published: new Date().toISOString(),
     publisher: 'publisher2',
     pages: 222,
     description: 'description2',
-    website: 'http://example2.com/'
+    website: 'http://example2.com/',
+    categories: []
   }
 ];
 

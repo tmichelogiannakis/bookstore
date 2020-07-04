@@ -113,6 +113,19 @@
   }
 }
 
+// size
+.ui-button.ui-button-sm {
+  &.ui-button-text-only {
+    min-width: 4rem;
+    .ui-button-text {
+      padding: 0.25rem 0.5rem;
+      width: 100%;
+      font-size: 0.75rem;
+      line-height: 1;
+    }
+  }
+}
+
 // misc
 .ui-button {
   + .ui-button {

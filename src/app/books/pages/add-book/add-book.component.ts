@@ -3,9 +3,10 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { ConfirmationService, SelectItem } from 'primeng/api';
 import { Subject } from 'rxjs';
-import { takeUntil, filter } from 'rxjs/operators';
+import { takeUntil, filter, map } from 'rxjs/operators';
 import { CustomValidators } from '../../../shared/custom.validators';
 import { BooksService } from '../../services/books.service';
+import { BookGenre } from '../../../core/models/book-genre.model';
 
 @Component({
   selector: 'app-add-book',
@@ -18,45 +19,12 @@ export class AddBookComponent implements OnInit, OnDestroy {
 
   form: FormGroup;
 
-  categorySelectItems: SelectItem[] = [
-    {
-      label: 'Classic',
-      value: 1
-    },
-    {
-      label: 'Crime/detective',
-      value: 2
-    },
-    {
-      label: 'Epic',
-      value: 3
-    },
-    {
-      label: 'Fable',
-      value: 4
-    },
-    {
-      label: 'Fairy tale',
-      value: 5
-    },
-    {
-      label: 'Fantasy',
-      value: 6
-    },
-    {
-      label: 'Folktale',
-      value: 7
-    },
-    {
-      label: 'Gothic fiction',
-      value: 8
-    }
-  ];
+  genreSelectItems: SelectItem[];
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private activatedRoute: ActivatedRoute,
+    private route: ActivatedRoute,
     public confirmationService: ConfirmationService,
     private booksService: BooksService
   ) {
@@ -108,6 +76,15 @@ export class AddBookComponent implements OnInit, OnDestroy {
         this.form.reset();
         this.form.updateValueAndValidity();
       });
+
+    this.route
+      .parent!.data.pipe(
+        map((data) => data.bookGenres),
+        takeUntil(this.unsubscribe)
+      )
+      .subscribe((bookGenres: BookGenre[]) => {
+        this.genreSelectItems = bookGenres.map((g) => ({ label: g.label, value: g.id }));
+      });
   }
 
   ngOnDestroy(): void {
@@ -124,7 +101,7 @@ export class AddBookComponent implements OnInit, OnDestroy {
         .pipe(takeUntil(this.unsubscribe))
         .subscribe(() => {
           this.form.markAsPristine();
-          this.router.navigate(['../'], { relativeTo: this.activatedRoute });
+          this.router.navigate(['../'], { relativeTo: this.route });
         });
     }
   }

@@ -1,0 +1,38 @@
+<div class="p-grid p-my-3" *ngIf="book$ | async as book">
+  <div class="p-col-fixed">
+    <img src="./assets/images/missing-image.jpg" />
+  </div>
+  <div class="p-col">
+    <h1 class="p-my-0">{{ book.title }}</h1>
+    <h4 class="p-mt-1 p-mb-0">{{ book.subtitle }}</h4>
+    <div>
+      <ul>
+        <li>Author: {{ book.author | array: ', ' }}</li>
+        <ng-container *ngIf="bookGenreMap">
+          <li *ngIf="book.categories as categories">
+            Categories:
+            <ng-container *ngFor="let category of categories; let last = last">
+              #{{ bookGenreMap[category] }}<ng-container *ngIf="!last">, </ng-container>
+            </ng-container>
+          </li>
+        </ng-container>
+        <li>ISBN: {{ book.isbn }}</li>
+        <li>Published Year: {{ book.published }}</li>
+        <li>Pages: {{ book.pages }}</li>
+        <li>Publisher: {{ book.publisher }}</li>
+        <li *ngIf="book.website">
+          Website: <a [href]="book.website" target="_blank"> {{ book.website }}</a>
+        </li>
+      </ul>
+    </div>
+    <div>{{ book.description }}</div>
+  </div>
+</div>
+<div class="p-grid">
+  <div class="p-col">
+
+  </div>
+  <div class="p-col-fixed">
+    <button pButton type="button" label="BACK" [routerLink]="['../../']"></button>
+  </div>
+</div>

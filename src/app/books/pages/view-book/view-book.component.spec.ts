@@ -1,15 +1,24 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { AddBookComponent } from './add-book.component';
-import { MultiSelectModule } from 'primeng/multiselect';
-import { ChipsModule } from 'primeng/chips';
+import { ViewBookComponent } from './view-book.component';
+import { ActivatedRoute } from '@angular/router';
+import { of } from 'rxjs';
+import { Book } from 'src/app/core/models/book.model';
 import { BookGenre } from 'src/app/core/models/book-genre.model';
 import { ArrayPipe } from 'src/app/shared/pipes/array.pipe';
-import { of } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
-import { ReactiveFormsModule } from '@angular/forms';
+
+const book: Book = {
+  isbn: 'isbn1',
+  title: 'title1',
+  subtitle: 'subtitle1',
+  author: 'author1',
+  published: new Date().toISOString(),
+  publisher: 'publisher1',
+  pages: 111,
+  description: 'description1',
+  website: 'http://example.com/',
+  categories: []
+};
 
 const bookGenres: BookGenre[] = [
   {
@@ -22,31 +31,30 @@ const bookGenres: BookGenre[] = [
   }
 ];
 
-describe('AddBookComponent', () => {
-  let component: AddBookComponent;
-  let fixture: ComponentFixture<AddBookComponent>;
+describe('ViewBookComponent', () => {
+  let component: ViewBookComponent;
+  let fixture: ComponentFixture<ViewBookComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule, HttpClientTestingModule, ReactiveFormsModule, ChipsModule, MultiSelectModule],
+      imports: [RouterTestingModule],
       providers: [
         {
           provide: ActivatedRoute,
           useValue: {
-            data: of(null),
-            snapshot: { data: null },
+            data: of({ book }),
+            snapshot: { data: { book } },
             params: of(null),
             parent: { data: of({ bookGenres }), snapshot: { data: { bookGenres } }, params: of(null) }
           } as any
         }
       ],
-      declarations: [AddBookComponent, ArrayPipe],
-      schemas: [NO_ERRORS_SCHEMA]
+      declarations: [ViewBookComponent, ArrayPipe]
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AddBookComponent);
+    fixture = TestBed.createComponent(ViewBookComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
