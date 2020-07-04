@@ -105,11 +105,11 @@
     </div>
     <div class="p-col-12">
       <div class="p-field">
-        <label for="authors">Author(s)</label>
-        <p-chips formControlName="authors" [max]="3" [inputId]="'authors'" aria-describedby="authors-help"></p-chips>
-        <ng-container *ngIf="form.controls.authors.touched">
-          <ng-container *ngIf="form.controls.authors.errors as errors">
-            <small id="authors-help" class="invalid-feedback">
+        <label for="author">Author(s)</label>
+        <p-chips formControlName="author" [max]="3" [inputId]="'author'" aria-describedby="author-help"></p-chips>
+        <ng-container *ngIf="form.controls.author.touched">
+          <ng-container *ngIf="form.controls.author.errors as errors">
+            <small id="author-help" class="invalid-feedback">
               <ng-container *ngIf="errors?.required">
                 Fill out at least one author
               </ng-container>

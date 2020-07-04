@@ -81,7 +81,7 @@ export class AddBookComponent implements OnInit, OnDestroy {
         Validators.pattern(`^[A-Z].*`)
       ]),
       categories: this.fb.control([]),
-      authors: this.fb.control([], [Validators.required]),
+      author: this.fb.control([], [Validators.required]),
       isbn: this.fb.control(null, [
         Validators.required,
         // validate numeric value 13 digits long
