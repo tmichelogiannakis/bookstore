@@ -1,0 +1,23 @@
+<div class="ui-breadcrumb">
+  <ul>
+    <ng-container *ngFor="let item of breadcrumbItems; let last = last; trackBy: trackByFn">
+      <li>
+        <a
+          *ngIf="item.routerLink"
+          [routerLink]="item.routerLink"
+          [routerLinkActive]="'ui-menuitem-link-active'"
+          [routerLinkActiveOptions]="item.routerLinkActiveOptions || { exact: false }"
+          class="ui-menuitem-link"
+          [ngClass]="{ 'ui-state-disabled': item.disabled || last }"
+          [attr.target]="item.target"
+          [attr.title]="item.title"
+          [attr.id]="item.id"
+        >
+          <span *ngIf="item.icon" class="ui-menuitem-icon" [ngClass]="item.icon"></span>
+          <span class="ui-menuitem-text">{{ item.label }}</span>
+        </a>
+      </li>
+      <li class="ui-breadcrumb-chevron pi pi-chevron-right" *ngIf="!last"></li>
+    </ng-container>
+  </ul>
+</div>

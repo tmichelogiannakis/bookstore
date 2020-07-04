@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { DataView } from 'primeng/dataview';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Book } from '../../../core/models/book.model';
-import { DataView } from 'primeng/dataview';
 
 @Component({
   selector: 'app-book-list',
@@ -12,7 +12,6 @@ import { DataView } from 'primeng/dataview';
 })
 export class BookListComponent implements OnInit {
   @ViewChild('dv') dv: DataView;
-
   books$: Observable<Book[]>;
 
   constructor(private route: ActivatedRoute) {}

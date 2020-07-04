@@ -7,6 +7,7 @@ import { takeUntil, filter, map } from 'rxjs/operators';
 import { CustomValidators } from '../../../shared/custom.validators';
 import { BooksService } from '../../services/books.service';
 import { BookGenre } from '../../../core/models/book-genre.model';
+import { BreadcrumbService } from 'src/app/core/services/breadcrumb.service';
 
 @Component({
   selector: 'app-add-book',
@@ -16,9 +17,7 @@ import { BookGenre } from '../../../core/models/book-genre.model';
 })
 export class AddBookComponent implements OnInit, OnDestroy {
   private unsubscribe: Subject<void> = new Subject();
-
   form: FormGroup;
-
   genreSelectItems: SelectItem[];
 
   constructor(
@@ -26,7 +25,8 @@ export class AddBookComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     public confirmationService: ConfirmationService,
-    private booksService: BooksService
+    private booksService: BooksService,
+    private breadcrumbService: BreadcrumbService
   ) {
     const dt = new Date();
 
@@ -66,6 +66,12 @@ export class AddBookComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.breadcrumbService.pushItem({
+      id: 'books-add',
+      label: 'New',
+      routerLink: ['/books', 'add']
+    });
+
     // If it is a NavigationEnd event re-initalise the component
     this.router.events
       .pipe(
@@ -88,6 +94,7 @@ export class AddBookComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.breadcrumbService.removeItem('books-add');
     this.unsubscribe.next();
     this.unsubscribe.complete();
   }
