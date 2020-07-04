@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Route, RouterModule } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
 import { BooksComponent } from './books.component';
+import { BookGenresResolver } from './resolvers/book-genres.resolver';
 import { BooksResolver } from './resolvers/books.resolver';
 import { BookResolver } from './resolvers/book.resolver';
 import { BookListComponent } from './pages/book-list/book-list.component';
@@ -13,6 +14,9 @@ const routes: Route[] = [
   {
     path: '',
     component: BooksComponent,
+    resolve: {
+      bookGenres: BookGenresResolver
+    },
     children: [
       {
         path: '',

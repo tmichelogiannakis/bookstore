@@ -16,7 +16,8 @@ const books: Book[] = [
     publisher: 'publisher1',
     pages: 111,
     description: 'description1',
-    website: 'http://example.com/'
+    website: 'http://example.com/',
+    categories: []
   },
   {
     isbn: 'isbn2',
@@ -27,7 +28,8 @@ const books: Book[] = [
     publisher: 'publisher2',
     pages: 222,
     description: 'description2',
-    website: 'http://example2.com/'
+    website: 'http://example2.com/',
+    categories: []
   }
 ];
 

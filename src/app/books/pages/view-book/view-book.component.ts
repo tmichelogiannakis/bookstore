@@ -1,16 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, Subject } from 'rxjs';
+import { map, takeUntil } from 'rxjs/operators';
 import { Book } from '../../../core/models/book.model';
+import { BookGenre } from '../../../core/models/book-genre.model';
 
 @Component({
   selector: 'app-view-book',
   templateUrl: './view-book.component.html',
   styleUrls: ['./view-book.component.scss']
 })
-export class ViewBookComponent implements OnInit {
+export class ViewBookComponent implements OnInit, OnDestroy {
+  private unsubscribe: Subject<void> = new Subject();
   book$: Observable<Book>;
+  bookGenreMap$: Observable<{ [key: string]: string }>;
+  bookGenreMap: { [key: string]: string };
 
   constructor(private route: ActivatedRoute) {}
 
@@ -27,5 +31,26 @@ export class ViewBookComponent implements OnInit {
         return { ...book, published };
       })
     );
+
+    this.route.parent?.data.subscribe(console.log);
+
+    this.bookGenreMap$ = (this.route.parent as ActivatedRoute).data.pipe(
+      map((data) => data.bookGenres),
+      map((bookGenres: BookGenre[]) => bookGenres.reduce((acc, bg) => ({ ...acc, [bg.id]: bg.label }), {}))
+    );
+
+    this.route
+      .parent!.data.pipe(
+        map((data) => data.bookGenres),
+        takeUntil(this.unsubscribe)
+      )
+      .subscribe((bookGenres: BookGenre[]) => {
+        this.bookGenreMap = bookGenres.reduce((acc, bg) => ({ ...acc, [bg.id]: bg.label }), {});
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribe.next();
+    this.unsubscribe.complete();
   }
 }

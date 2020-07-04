@@ -1,0 +1,153 @@
+[
+  {
+    "label": "Classic",
+    "id": "c1"
+  },
+  {
+    "label": "Crime/detective",
+    "id": "c2"
+  },
+  {
+    "label": "Epic",
+    "id": "c3"
+  },
+  {
+    "label": "Fable",
+    "id": "c4"
+  },
+  {
+    "label": "Fairy tale",
+    "id": "c5"
+  },
+  {
+    "label": "Fantasy",
+    "id": "c6"
+  },
+  {
+    "label": "Folktale",
+    "id": "c7"
+  },
+  {
+    "label": "Gothic fiction",
+    "id": "c8"
+  },
+  {
+    "label": "Historical fiction",
+    "id": "c9"
+  },
+  {
+    "label": "Horror",
+    "id": "c10"
+  },
+  {
+    "label": "Humor",
+    "id": "c11"
+  },
+  {
+    "label": "Legend",
+    "id": "c12"
+  },
+  {
+    "label": "Magical realism",
+    "id": "c13"
+  },
+  {
+    "label": "Meta fiction",
+    "id": "c14"
+  },
+  {
+    "label": "Mystery",
+    "id": "c15"
+  },
+  {
+    "label": "Mythology",
+    "id": "c16"
+  },
+  {
+    "label": "Mythopoeia",
+    "id": "c17"
+  },
+  {
+    "label": "Realistic fiction",
+    "id": "c18"
+  },
+  {
+    "label": "Romance",
+    "id": "c18"
+  },
+  {
+    "label": "Satire",
+    "id": "c19"
+  },
+  {
+    "label": "Science fiction",
+    "id": "c20"
+  },
+  {
+    "label": "Realistic fiction",
+    "id": "c21"
+  },
+  {
+    "label": "Short story",
+    "id": "c22"
+  },
+
+  {
+    "label": "Swashbuckler",
+    "id": "c23"
+  },
+  {
+    "label": "Tall tale",
+    "id": "c24"
+  },
+  {
+    "label": "Theological fiction",
+    "id": "c25"
+  },
+  {
+    "label": "Suspense/thriller",
+    "id": "c26"
+  },
+  {
+    "label": "Travel",
+    "id": "c27"
+  },
+  {
+    "label": "Western",
+    "id": "c28"
+  },
+
+  {
+    "label": "Biography",
+    "id": "c29"
+  },
+  {
+    "label": "Essay",
+    "id": "c30"
+  },
+  {
+    "label": "Journalism",
+    "id": "c31"
+  },
+
+  {
+    "label": "Memoir",
+    "id": "c32"
+  },
+  {
+    "label": "Narrative nonfiction/personal narrative",
+    "id": "c33"
+  },
+  {
+    "label": "Reference book",
+    "id": "c34"
+  },
+  {
+    "label": "Speech",
+    "id": "c35"
+  },
+  {
+    "label": "Textbook",
+    "id": "c36"
+  }
+]
