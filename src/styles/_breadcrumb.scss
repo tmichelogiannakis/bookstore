@@ -4,18 +4,21 @@
 }
 
 .ui-breadcrumb ul li .ui-menuitem-link {
-  color: #212121;
+  color: $color-primary;
   margin: 0;
   border-radius: $border-radius;
   transition: box-shadow 0.2s;
   font-weight: bold;
+  &.ui-state-disabled {
+    color: #bdbdbd;
+  }
 }
 
 .ui-breadcrumb ul li.ui-breadcrumb-chevron {
   margin: 0 0.5rem 0 0.5rem;
-  color: #BDBDBD;
+  color: #bdbdbd;
 }
 
 .ui-breadcrumb ul li .ui-menuitem-icon {
-  color: #212121;
+  color: $color-primary;
 }
