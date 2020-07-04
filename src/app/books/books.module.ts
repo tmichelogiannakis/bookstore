@@ -3,6 +3,7 @@ import { Route, RouterModule } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
 import { BooksComponent } from './books.component';
 import { BooksResolver } from './resolvers/books.resolver';
+import { BookResolver } from './resolvers/book.resolver';
 import { BookListComponent } from './pages/book-list/book-list.component';
 import { AddBookComponent } from './pages/add-book/add-book.component';
 import { CanDeactivateBookGuard } from './guards/can-deactivate-book.guard';
@@ -28,7 +29,10 @@ const routes: Route[] = [
       },
       {
         path: ':isbn/view',
-        component: ViewBookComponent
+        component: ViewBookComponent,
+        resolve: {
+          book: BookResolver
+        }
       }
     ]
   }

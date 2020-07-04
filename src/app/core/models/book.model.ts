@@ -4,7 +4,7 @@ export interface Book {
   subtitle: string;
   categories?: string[];
   author: string | string[];
-  published: Date | number;
+  published: string | number;
   publisher: string;
   pages: number;
   description: string;
