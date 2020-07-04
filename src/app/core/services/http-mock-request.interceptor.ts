@@ -3,7 +3,7 @@ import { HttpRequest, HttpInterceptor, HttpHandler, HttpEvent, HttpResponse } fr
 import { Observable, of } from 'rxjs';
 import { delay, mergeMap, tap } from 'rxjs/operators';
 import { Book } from '../models/book.model';
-import * as booksJSON from '../../../assets/data/books.json';
+import * as booksJSON from './data/books.json';
 
 const retrieveBooks = () => {
   const booksString = localStorage.getItem('books');
@@ -37,7 +37,7 @@ export class HttpMockRequestInterceptorService implements HttpInterceptor {
               this.storeBook(data.body);
             })
           );
-        }
+        }        
 
         return next.handle(request);
       }),
