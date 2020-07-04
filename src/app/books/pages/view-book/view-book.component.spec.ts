@@ -3,9 +3,9 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { ViewBookComponent } from './view-book.component';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
-import { Book } from 'src/app/core/models/book.model';
-import { BookGenre } from 'src/app/core/models/book-genre.model';
-import { ArrayPipe } from 'src/app/shared/pipes/array.pipe';
+import { Book } from '../../../core/models/book.model';
+import { BookGenre } from '../../../core/models/book-genre.model';
+import { ArrayPipe } from '../../../shared/pipes/array.pipe';
 
 const book: Book = {
   isbn: 'isbn1',
