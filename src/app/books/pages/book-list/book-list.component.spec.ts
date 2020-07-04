@@ -38,7 +38,7 @@ describe('BookListComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule],
-      providers: [{ provide: ActivatedRoute, useValue: { data: of({ books }) } as any }],
+      providers: [{ provide: ActivatedRoute, useValue: { data: of({ books }), snapshot: { data: { books } }, params: of(null) } as any }],
       declarations: [BookListComponent],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();

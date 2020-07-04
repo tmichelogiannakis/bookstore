@@ -6,21 +6,24 @@
   border-radius: $border-radius;
   display: inline-flex;
   align-items: center;
-  color: #ffffff;
-  background-color: #999999;
-  border-color: #999999;
+  color: #000000;
+  background-color: #ffffff;
   transition: all 0.2s;
   outline: none;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #eeeeee;
 
   &:not([disabled]) {
     &:hover,
     &:active {
-      background-color: #aaaaaa;
+      background-color: #f5f5f5;
     }
   }
 
   &[disabled] {
-    background-color: #d7d7d7;
+    background-color: #e0e0e0;
+    color: #bcbcbc;
     cursor: initial;
   }
 
@@ -32,30 +35,33 @@
   .ui-button-icon-right {
     position: static;
     margin: 0;
-    font-size: 1rem;
+    font-size: 0.875rem;
     line-height: 1;
   }
 
   .ui-button-icon-left {
-    padding-left: 0.25rem;
+    padding-left: 1rem;
   }
 
   .ui-button-icon-right {
-    padding-right: 0.25rem;
+    padding-right: 1rem;
   }
 }
 
-.ui-button-text-only .ui-button-text {
-  padding: 0.25rem 1rem;
-  width: 100%;
+.ui-button-text-only {
+  min-width: 5rem;
+  .ui-button-text {
+    padding: 0.4375rem 1rem;
+    width: 100%;
+  }
 }
 
 .ui-button-text-icon-left .ui-button-text {
-  padding: 0.25rem 1rem 0.25rem 0.25rem;
+  padding: 0.4375rem 1rem 0.4375rem 0.5rem;
 }
 
 .ui-button-text-icon-right .ui-button-text {
-  padding: 0.25rem 0.25rem 0.25rem 1rem;
+  padding: 0.4375rem 0.5rem 0.4375rem 1rem;
 }
 
 .ui-button-text-empty .ui-button-text,
@@ -68,6 +74,43 @@
   width: 2rem;
   height: 2rem;
   line-height: 2rem;
+}
+
+// Contextual colors
+.ui-button.ui-button-primary {
+  color: #ffffff;
+  background-color: $color-primary;
+  border-color: $color-primary;
+  &:not([disabled]) {
+    &:hover,
+    &:active {
+      background-color: darken($color-primary, 7.5%);
+      border-color: darken($color-primary, 7.5%);
+    }
+  }
+
+  &[disabled] {
+    background-color: #d7d7d7;
+    cursor: initial;
+  }
+}
+
+.ui-button.ui-button-danger {
+  color: #ffffff;
+  background-color: $color-danger;
+  border-color: $color-danger;
+  &:not([disabled]) {
+    &:hover,
+    &:active {
+      background-color: darken($color-danger, 7.5%);
+      border-color: darken($color-danger, 7.5%);
+    }
+  }
+
+  &[disabled] {
+    background-color: #d7d7d7;
+    cursor: initial;
+  }
 }
 
 // misc

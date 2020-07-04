@@ -2,8 +2,9 @@ export interface Book {
   isbn: string;
   title: string;
   subtitle: string;
-  author: string;
-  published: Date;
+  categories?: string[];
+  author: string | string[];
+  published: Date | number;
   publisher: string;
   pages: number;
   description: string;

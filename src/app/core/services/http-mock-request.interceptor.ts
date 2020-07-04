@@ -1,0 +1,52 @@
+import { Injectable } from '@angular/core';
+import { HttpRequest, HttpInterceptor, HttpHandler, HttpEvent, HttpResponse } from '@angular/common/http';
+import { Observable, of } from 'rxjs';
+import { delay, mergeMap, tap } from 'rxjs/operators';
+import { Book } from '../models/book.model';
+import * as booksJSON from './data/books.json';
+
+const retrieveBooks = () => {
+  const booksString = localStorage.getItem('books');
+  return booksString ? JSON.parse(booksString) : (booksJSON as any).default;
+};
+
+const storeBooks = (books: Book[]) => {
+  localStorage.setItem('books', JSON.stringify(books));
+};
+
+@Injectable()
+export class HttpMockRequestInterceptorService implements HttpInterceptor {
+  private books: Book[];
+
+  constructor() {
+    this.books = retrieveBooks();
+  }
+
+  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    const { url, method, headers, body } = request;
+
+    return of(null).pipe(
+      mergeMap(() => {
+        if (url.endsWith('/books') && method === 'GET') {
+          return of(new HttpResponse({ status: 200, body: this.books }));
+        }
+
+        if (url.endsWith('/books') && method === 'POST') {
+          return of(new HttpResponse({ status: 200, body: body })).pipe(
+            tap((data) => {
+              this.storeBook(data.body);
+            })
+          );
+        }        
+
+        return next.handle(request);
+      }),
+      delay(500)
+    );
+  }
+
+  private storeBook(book: Book) {
+    this.books.push(book);
+    storeBooks(this.books);
+  }
+}

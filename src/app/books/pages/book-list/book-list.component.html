@@ -1,11 +1,16 @@
-<h1>Search to find your new book</h1>
+<div class="p-grid p-align-center">
+  <div class="p-col"><h1>Search to find your new book</h1></div>
+  <div class="p-col-fixed"><a pButton [icon]="'pi pi-plus'" label="Add Book" class="ui-button-primary" [routerLink]="['add']"></a></div>
+</div>
 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
 
 <ng-container *ngIf="books$ | async as books">
   <p-dataView #dv [value]="books" [layout]="'grid'" [filterBy]="'title,author'">
     <p-header>
       <div class="p-grid">
-        <div class="p-col-auto">View as <p-dataViewLayoutOptions></p-dataViewLayoutOptions></div>
+        <div class="p-col-auto">
+          <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+        </div>
         <div class="p-col">
           <div class="p-grid p-align-center">
             <div class="p-col-fixed">
@@ -22,7 +27,7 @@
           <div class="p-col-fixed"><img src="./assets/images/missing-image.jpg" [alt]="book.title" /></div>
           <div class="p-col">
             <h4 class="p-mt-0">{{ book.title }}</h4>
-            <p>by {{ book.author }}</p>
+            <p>by {{ book.author | array: ', ' }}</p>
           </div>
         </div>
       </article>
@@ -31,7 +36,7 @@
       <article class="p-col-12 p-sm-4 p-md-3">
         <img src="./assets/images/missing-image.jpg" [alt]="book.title" />
         <h4 class="p-mt-0">{{ book.title }}</h4>
-        <p>by {{ book.author }}</p>
+        <p>by {{ book.author | array: ', ' }}</p>
       </article>
     </ng-template>
   </p-dataView>
