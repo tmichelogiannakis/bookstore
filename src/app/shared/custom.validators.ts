@@ -1,8 +1,5 @@
 import { AbstractControl, ValidatorFn, ValidationErrors } from '@angular/forms';
-
-function isEmptyInputValue(value: any): boolean {
-  return value == null || value.length === 0;
-}
+import { isEmptyInputValue } from './utils';
 
 export class CustomValidators {
   static range(min: number, max: number): ValidatorFn {
