@@ -6,11 +6,12 @@ import { SharedModule } from '../shared/shared.module';
 import { HeaderComponent } from './components/header/header.component';
 import { SidebarContainerComponent } from './components/sidebar-container/sidebar-container.component';
 import { HttpMockRequestInterceptorService } from './services/http-mock-request.interceptor';
+import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
 
 @NgModule({
-  declarations: [HeaderComponent, SidebarContainerComponent, SidebarContainerComponent],
+  declarations: [HeaderComponent, SidebarContainerComponent, SidebarContainerComponent, BreadcrumbComponent],
   imports: [BrowserAnimationsModule, SidebarModule.forRoot(), HttpClientModule, SharedModule],
-  exports: [SharedModule, HeaderComponent, SidebarContainerComponent],
+  exports: [SharedModule, HeaderComponent, SidebarContainerComponent, BreadcrumbComponent],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
