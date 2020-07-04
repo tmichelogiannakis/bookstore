@@ -1,0 +1,21 @@
+.ui-breadcrumb {
+  background-color: #ffffff;
+  padding: 0.5rem 0;
+}
+
+.ui-breadcrumb ul li .ui-menuitem-link {
+  color: #212121;
+  margin: 0;
+  border-radius: $border-radius;
+  transition: box-shadow 0.2s;
+  font-weight: bold;
+}
+
+.ui-breadcrumb ul li.ui-breadcrumb-chevron {
+  margin: 0 0.5rem 0 0.5rem;
+  color: #BDBDBD;
+}
+
+.ui-breadcrumb ul li .ui-menuitem-icon {
+  color: #212121;
+}
