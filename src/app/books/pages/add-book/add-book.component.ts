@@ -115,12 +115,17 @@ export class AddBookComponent implements OnInit, OnDestroy {
     this.unsubscribe.complete();
   }
 
-  submit() {
+  submit(): void {
     this.form.markAllAsTouched();
     if (this.form.valid) {
       const value = this.form.value;
-      console.log({ value });
-      this.router.navigate(['../'], { relativeTo: this.activatedRoute });
+      this.booksService
+        .createBook(value)
+        .pipe(takeUntil(this.unsubscribe))
+        .subscribe(() => {
+          this.form.markAsPristine();
+          this.router.navigate(['../'], { relativeTo: this.activatedRoute });
+        });
     }
   }
 }

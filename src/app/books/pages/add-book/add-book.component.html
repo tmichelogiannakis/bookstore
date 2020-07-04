@@ -4,8 +4,6 @@
     <a pButton [icon]="'pi pi-plus'" label="Add Another Book" class="ui-button-primary" [routerLink]="['./']"></a>
   </div>
 </div>
-<pre>{{ form.valid }}</pre>
-<pre>{{ form.value | json }}</pre>
 
 <form [formGroup]="form" (ngSubmit)="submit()" class="p-mb-3">
   <div class="p-grid">
