@@ -1,11 +1,12 @@
-@import 'node_modules/primeflex/primeflex.scss';
+/* @import 'node_modules/primeflex/primeflex.scss'; */
+@import 'primeflex/primeflex';
 
 .p-grid {
   margin-top: 0;
 }
 
-.p-grid > .p-col,
-.p-grid > [class*='p-col-'] {
+.p-grid:not(.p-nogutter) > .p-col,
+.p-grid:not(.p-nogutter) > [class*='p-col-'] {
   padding: 0 $gutter;
 }
 
