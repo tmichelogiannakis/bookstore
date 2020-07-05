@@ -105,7 +105,15 @@
     <div class="p-col-12">
       <div class="p-field">
         <label for="author">Author(s)</label>
-        <p-chips formControlName="author" [max]="3" [inputId]="'author'" aria-describedby="author-help"></p-chips>
+        <p-chips
+          formControlName="author"
+          [addOnBlur]="true"
+          [addOnTab]="true"
+          [allowDuplicate]="false"
+          [max]="3"
+          [inputId]="'author'"
+          aria-describedby="author-help"
+        ></p-chips>
         <ng-container *ngIf="form.controls.author.touched">
           <ng-container *ngIf="form.controls.author.errors as errors">
             <small id="author-help" class="invalid-feedback">

@@ -1,5 +1,10 @@
-<app-header [opened]="opened" (toggleSidebar)="onToggleSidebar()"></app-header>
-<app-sidebar-container [opened]="opened">
+<app-header [opened]="sideBarOpened" (toggleSidebar)="onToggleSidebar()"></app-header>
+<app-sidebar-container [opened]="sideBarOpened">
   <app-breadcrumb [breadcrumbItems]="breadcrumbItems$ | async"></app-breadcrumb>
   <router-outlet></router-outlet>
 </app-sidebar-container>
+
+<ng-container *ngIf="loading$ | async"> 
+  <p-blockUI [blocked]="true"></p-blockUI>
+  <p-progressSpinner></p-progressSpinner>
+</ng-container>

@@ -17,7 +17,7 @@ export class ImageuploadComponent implements ControlValueAccessor {
   @Input() disabled = false;
 
   @Input()
-  imageUrl = './assets/images/missing-image.jpg';
+  imageUrl = './assets/images/missing-image.png';
 
   onChange = (value: File) => {};
 
