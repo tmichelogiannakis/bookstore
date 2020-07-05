@@ -5,7 +5,7 @@
   </div>
 </div>
 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
-<div class="p-mb-3" *ngIf="books$ | async as books">
+<div class="p-mb-3">
   <p-dataView #dv [value]="books" [layout]="'grid'" [filterBy]="'title,author'">
     <p-header>
       <div class="p-grid">
@@ -36,8 +36,9 @@
               </div>
               <div class="p-grid p-nogutter p-justify-end">
                 <div class="p-pr-2">
+                  <a pButton class="ui-button-primary" [routerLink]="[book.isbn]" [label]="'EDIT'"></a>
                   <a pButton [routerLink]="[book.isbn, 'view']" [label]="'VIEW'"></a>
-                  <a pButton [routerLink]="[book.isbn]" [label]="'EDIT'"></a>
+                  <a pButton class="ui-button-danger" (click)="confirmDeletion(book)" [label]="'DELETE'"></a>
                 </div>
               </div>
             </div>
@@ -58,9 +59,10 @@
                 <p class="tile-book-author">by {{ book.author | array: ', ' }}</p>
               </div>
               <div class="p-grid p-nogutter p-justify-end">
-                <div class="p-pr-2">
+                <div>
+                  <a pButton class="ui-button-sm ui-button-primary" [routerLink]="[book.isbn]" [label]="'EDIT'"></a>
                   <a pButton class="ui-button-sm" [routerLink]="[book.isbn, 'view']" [label]="'VIEW'"></a>
-                  <a pButton class="ui-button-sm" [routerLink]="[book.isbn]" [label]="'EDIT'"></a>
+                  <a pButton class="ui-button-sm ui-button-danger" (click)="confirmDeletion(book)" [label]="'DELETE'"></a>
                 </div>
               </div>
             </div>
@@ -70,3 +72,10 @@
     </ng-template>
   </p-dataView>
 </div>
+
+<p-confirmDialog #cd appendTo="body" styleClass="ui-dialog-headless" [closable]="false">
+  <p-footer>
+    <button pButton label="CANCEL" (click)="cd.reject()" tabindex="0" autofocus></button>
+    <button pButton class="ui-button-danger" label="DELETE" (click)="cd.accept()" tabindex="1"></button>
+  </p-footer>
+</p-confirmDialog>

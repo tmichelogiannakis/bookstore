@@ -86,6 +86,16 @@ export class HttpMockRequestInterceptor implements HttpInterceptor {
           );
         }
 
+        if (url.match(/\/books\/\d+$/) && method === 'DELETE') {
+          const urlParts = url.split('/');
+          const isbn = urlParts[urlParts.length - 1];
+          return of(new HttpResponse({ status: 200, body: {} })).pipe(
+            tap(() => {
+              this.deleteBook(isbn);
+            })
+          );
+        }
+
         if (url.match(/\/books\/\d+$/) && method === 'GET') {
           const urlParts = url.split('/');
           const isbn = urlParts[urlParts.length - 1];
@@ -111,6 +121,11 @@ export class HttpMockRequestInterceptor implements HttpInterceptor {
       }
       return b;
     });
+    storeBooks(this.books);
+  }
+
+  private deleteBook(isbn: string) {
+    this.books = this.books.filter((b: Book) => b.isbn !== isbn);
     storeBooks(this.books);
   }
 }

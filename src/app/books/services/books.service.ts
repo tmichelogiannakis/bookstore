@@ -27,6 +27,10 @@ export class BooksService {
     return this.http.put<Book>(`${this.endpoints.books}/${isbn}`, payload);
   }
 
+  deleteBook(isbn: string): Observable<void> {
+    return this.http.delete<void>(`${this.endpoints.books}/${isbn}`);
+  }
+
   getBook(isbn: string): Observable<Book> {
     return this.http.get<Book>(`${this.endpoints.books}/${isbn}`);
   }
