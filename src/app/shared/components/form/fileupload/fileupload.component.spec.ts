@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { FileuploadComponent } from './fileupload.component';
 
 describe('FileuploadComponent', () => {
@@ -8,9 +8,9 @@ describe('FileuploadComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FileuploadComponent ]
-    })
-    .compileComponents();
+      declarations: [FileuploadComponent],
+      schemas: [NO_ERRORS_SCHEMA]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

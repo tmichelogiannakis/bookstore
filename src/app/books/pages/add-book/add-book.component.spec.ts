@@ -10,6 +10,7 @@ import { ArrayPipe } from '../../../shared/pipes/array.pipe';
 import { of } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
+import { FileuploadComponent } from 'src/app/shared/components/form/fileupload/fileupload.component';
 
 const bookGenres: BookGenre[] = [
   {
@@ -40,7 +41,7 @@ describe('AddBookComponent', () => {
           } as any
         }
       ],
-      declarations: [AddBookComponent, ArrayPipe],
+      declarations: [AddBookComponent, ArrayPipe, FileuploadComponent],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
   }));
