@@ -3,24 +3,18 @@
   padding: 0.4375rem 0.5rem;
   line-height: 1rem;
   background-color: #ffffff;
-  border: 1px solid #bdbdbd;
+  border: 1px solid rgb(50, 49, 48);
   box-shadow: none;
   width: 100%;
   transition: all 0.25s;
-  color: #212121;
+  color: rgb(50, 49, 48);
+  border-radius: $border-radius;
 
-  &:not(.ui-state-disabled):hover {
-    border-color: #212121;
-    .ui-multiselect-trigger {
-      color: #212121;
-    }
-  }
-
+  &:not(.ui-state-disabled):hover,
+  &:not(.ui-state-disabled):focus,
   &:not(.ui-state-disabled).ui-state-focus {
-    border-color: #212121;
-    .ui-multiselect-trigger {
-      color: #212121;
-    }
+    border-color: $color-primary;
+    box-shadow: 0px 0px 0px 1px $color-primary inset;
   }
 }
 
@@ -31,18 +25,17 @@
 }
 
 .ui-multiselect .ui-multiselect-trigger {
-  background-color: #ffffff;
   width: 2rem;
   line-height: 2rem;
   text-align: center;
   padding: 0;
-  color: #bdbdbd;
+  color: rgb(50, 49, 48);
 }
 
 .ui-multiselect-panel {
   padding: 0;
   background-color: #ffffff;
-  box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12);
+  box-shadow: rgba(0, 0, 0, 0.133) 0px 3.2px 7.2px 0px, rgba(0, 0, 0, 0.11) 0px 0.6px 1.8px 0px;
 }
 
 .ui-multiselect-panel .ui-multiselect-header .ui-multiselect-filter-container {
@@ -80,7 +73,7 @@
   padding: 0.5rem 0.5rem;
   line-height: 1rem;
   border: 0 none;
-  color: #212121;
+  color: rgb(50, 49, 48);
   background-color: transparent;
   transition: background-color 0.2s, box-shadow 0.2s;
   border-radius: 0;
@@ -90,23 +83,15 @@
 }
 
 .ui-multiselect-panel .ui-multiselect-items .ui-multiselect-item.ui-state-highlight {
-  color: $color-primary;
+  background-color: rgb(237, 235, 233);
 }
 
 .ui-multiselect-panel .ui-multiselect-items .ui-multiselect-item:not(.ui-state-disabled):hover {
-  background-color: #eeeeee;
+  background-color: rgb(237, 235, 233);
 }
 
 .ui-multiselect-panel .ui-multiselect-items .ui-multiselect-item.ui-state-disabled .ui-chkbox-box {
   cursor: auto;
-}
-
-.ui-multiselect-panel .ui-multiselect-items .ui-multiselect-item.ui-state-disabled .ui-chkbox-box:hover {
-  border: 1px solid #a6a6a6;
-}
-
-.ui-multiselect-panel .ui-multiselect-items .ui-multiselect-item.ui-state-disabled .ui-chkbox-box.ui-state-active:hover {
-  border-color: #007ad9;
 }
 
 .ui-multiselect-panel .ui-multiselect-items .ui-multiselect-item .ui-chkbox {

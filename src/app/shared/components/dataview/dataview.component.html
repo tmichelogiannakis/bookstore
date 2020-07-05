@@ -1,0 +1,39 @@
+<div [ngClass]="{ 'ui-dataview ui-widget': true, 'ui-dataview-list': layout === 'list', 'ui-dataview-grid': layout === 'grid' }">
+  <div class="ui-dataview-header ui-widget-header ui-corner-top">
+    <div class="p-grid">
+      <div class="p-col-auto">
+        <div class="ui-dataview-layout-options ui-selectbutton ui-buttonset">
+          <a
+            tabindex="0"
+            class="ui-button ui-button-icon-only ui-state-default"
+            (click)="changeLayout('list')"
+            (keydown.enter)="changeLayout('list')"
+            [ngClass]="{ 'ui-state-active': layout === 'list' }"
+          >
+            <i class="pi pi-bars ui-button-icon-left"></i>
+            <span class="ui-button-text ui-clickable">ui-btn</span> </a
+          ><a
+            tabindex="0"
+            class="ui-button ui-button-icon-only ui-state-default"
+            (click)="changeLayout('grid')"
+            (keydown.enter)="changeLayout('grid')"
+            [ngClass]="{ 'ui-state-active': layout === 'grid' }"
+          >
+            <i class="pi pi-th-large ui-button-icon-left"></i>
+            <span class="ui-button-text ui-clickable">ui-btn</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ui-dataview-content ui-widget-content">
+    <div class="p-grid">
+      <ng-template ngFor let-rowData let-rowIndex="index" [ngForOf]="filteredItems" [ngForTrackBy]="trackBy">
+        <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: rowData, rowIndex: rowIndex }"></ng-container>
+      </ng-template>
+      <div *ngIf="filteredItems === null || (filteredItems && filteredItems.length === 0)" class="p-col-12 ui-dataview-emptymessage">
+        {{ emptyMessage }}
+      </div>
+    </div>
+  </div>
+</div>

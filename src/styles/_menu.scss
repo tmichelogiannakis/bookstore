@@ -13,8 +13,10 @@
   border-radius: 0;
   outline: none;
   &.ui-menuitem-link-active {
-    background-color: #eeeeee;
-    color: #000000;
+    background-color: rgb(237, 235, 233);
+    color: rgb(50, 49, 48);
+    font-weight: bold;
+    border-left: 2px solid $color-primary;
   }
 }
 
@@ -23,6 +25,6 @@
 }
 
 .ui-menu .ui-menuitem-link:not(.ui-state-disabled):hover {
-  background-color: #eeeeee;
-  color: #000000;
+  background-color: rgb(243, 242, 241);
+  color: $color-primary;
 }

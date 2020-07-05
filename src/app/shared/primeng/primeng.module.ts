@@ -3,7 +3,6 @@ import { BlockUIModule } from 'primeng/blockui';
 import { ButtonModule } from 'primeng/button';
 import { ChipsModule } from 'primeng/chips';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { DataViewModule } from 'primeng/dataview';
 import { FileUploadModule } from 'primeng/fileupload';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { InputTextModule } from 'primeng/inputtext';
@@ -15,7 +14,6 @@ const modules = [
   BlockUIModule,
   ChipsModule,
   ConfirmDialogModule,
-  DataViewModule,
   FileUploadModule,
   InputTextModule,
   InputTextareaModule,
