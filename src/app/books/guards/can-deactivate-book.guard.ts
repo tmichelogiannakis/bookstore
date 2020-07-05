@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { CanDeactivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable, Observer } from 'rxjs';
-import { AddBookComponent } from '../pages/add-book/add-book.component';
+import { AddEditBookComponent } from '../pages/add-edit-book/add-edit-book.component';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CanDeactivateBookGuard implements CanDeactivate<AddBookComponent> {
+export class CanDeactivateBookGuard implements CanDeactivate<AddEditBookComponent> {
   canDeactivate(
-    component: AddBookComponent,
+    component: AddEditBookComponent,
     currentRoute: ActivatedRouteSnapshot,
     currentState: RouterStateSnapshot,
     nextState?: RouterStateSnapshot

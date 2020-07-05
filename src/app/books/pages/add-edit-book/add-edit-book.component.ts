@@ -8,15 +8,14 @@ import { CustomValidators } from '../../../shared/custom.validators';
 import { BooksService } from '../../services/books.service';
 import { BookGenre } from '../../../core/models/book-genre.model';
 import { BreadcrumbService } from '../../../core/services/breadcrumb.service';
-import { Book } from '../../../core/models/book.model';
 
 @Component({
-  selector: 'app-add-book',
-  templateUrl: './add-book.component.html',
-  styleUrls: ['./add-book.component.scss'],
+  selector: 'app-add-edit-book',
+  templateUrl: './add-edit-book.component.html',
+  styleUrls: ['./add-edit-book.component.scss'],
   providers: [ConfirmationService]
 })
-export class AddBookComponent implements OnInit, OnDestroy {
+export class AddEditBookComponent implements OnInit, OnDestroy {
   private unsubscribe: Subject<void> = new Subject();
   form: FormGroup;
   isEditMode: boolean;
@@ -90,8 +89,8 @@ export class AddBookComponent implements OnInit, OnDestroy {
       });
 
     this.route.params.pipe(takeUntil(this.unsubscribe)).subscribe((params: Params) => {
-      const { isbn } = params;
-      if (isbn) {
+      if (params && params.isbn) {
+        const { isbn } = params;
         this.isEditMode = true;
 
         const { book } = this.route.snapshot.data;

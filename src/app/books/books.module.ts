@@ -6,9 +6,9 @@ import { BookGenresResolver } from './resolvers/book-genres.resolver';
 import { BooksResolver } from './resolvers/books.resolver';
 import { BookResolver } from './resolvers/book.resolver';
 import { BookListComponent } from './pages/book-list/book-list.component';
-import { AddBookComponent } from './pages/add-book/add-book.component';
 import { CanDeactivateBookGuard } from './guards/can-deactivate-book.guard';
 import { ViewBookComponent } from './pages/view-book/view-book.component';
+import { AddEditBookComponent } from './pages/add-edit-book/add-edit-book.component';
 
 const routes: Route[] = [
   {
@@ -27,13 +27,13 @@ const routes: Route[] = [
       },
       {
         path: 'add',
-        component: AddBookComponent,
+        component: AddEditBookComponent,
         canDeactivate: [CanDeactivateBookGuard],
         runGuardsAndResolvers: 'always'
       },
       {
         path: ':isbn',
-        component: AddBookComponent,
+        component: AddEditBookComponent,
         canDeactivate: [CanDeactivateBookGuard],
         resolve: {
           book: BookResolver
@@ -51,7 +51,7 @@ const routes: Route[] = [
 ];
 
 @NgModule({
-  declarations: [BooksComponent, BookListComponent, AddBookComponent, ViewBookComponent],
+  declarations: [BooksComponent, BookListComponent, ViewBookComponent, AddEditBookComponent],
   imports: [SharedModule, RouterModule.forChild(routes)]
 })
 export class BooksModule {}
