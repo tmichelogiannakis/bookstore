@@ -55,7 +55,7 @@
                 </div>
                 <div class="p-grid p-nogutter p-justify-end">
                   <div>
-                    <a pButton class="ui-button-primary" [routerLink]="[book.isbn]" [label]="'Edit'"></a>
+                    <a pButton [routerLink]="[book.isbn]" [label]="'Edit'"></a>
                     <a pButton [routerLink]="[book.isbn, 'view']" [label]="'View'"></a>
                     <a pButton class="ui-button-danger" (click)="confirmDeletion(book)" [label]="'Delete'"></a>
                   </div>
@@ -80,7 +80,7 @@
               </div>
               <div class="p-grid p-nogutter p-justify-end">
                 <div>
-                  <a pButton class="ui-button-sm ui-button-primary" [routerLink]="[book.isbn]" [label]="'Edit'"></a>
+                  <a pButton class="ui-button-sm" [routerLink]="[book.isbn]" [label]="'Edit'"></a>
                   <a pButton class="ui-button-sm" [routerLink]="[book.isbn, 'view']" [label]="'View'"></a>
                   <a pButton class="ui-button-sm ui-button-danger" (click)="confirmDeletion(book)" [label]="'Delete'"></a>
                 </div>
