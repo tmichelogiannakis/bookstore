@@ -47,7 +47,7 @@ export class HttpMockRequestInterceptor implements HttpInterceptor {
         }
 
         if (url.endsWith('/books') && method === 'POST') {
-          if (body.image) {
+          if (body.image && body.image instanceof Blob) {
             return from(fileToBase64(body.image)).pipe(
               mergeMap((base64String) => {
                 return of(new HttpResponse({ status: 200, body: { ...body, image: base64String } })).pipe(
@@ -68,7 +68,7 @@ export class HttpMockRequestInterceptor implements HttpInterceptor {
         if (url.match(/\/books\/\d+$/) && method === 'PUT') {
           const urlParts = url.split('/');
           const isbn = urlParts[urlParts.length - 1];
-          if (body.image) {
+          if (body.image && body.image instanceof Blob) {
             return from(fileToBase64(body.image)).pipe(
               mergeMap((base64String) => {
                 return of(new HttpResponse({ status: 200, body: { ...body, image: base64String } })).pipe(
