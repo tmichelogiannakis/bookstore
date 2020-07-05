@@ -1,17 +1,50 @@
 @import '~src/styles/variables';
 
-:host {
+.main-book {
   border-radius: $border-radius;
   background-color: #ffffff;
   display: block;
   padding: 1rem;
   box-shadow: 0 1.6px 3.6px 0 rgba(0, 0, 0, 0.132), 0 0.3px 0.9px 0 rgba(0, 0, 0, 0.108);
+  .image {
+    max-width: 12rem;
+  }
+
+  .column-content {
+    padding-left: 1rem;
+  }
 }
 
-.image {
-  max-width: 12rem;
-}
 
-.column-content {
-  padding-left: 1rem;
+.tile-book {
+  border: 1px solid rgb(237, 235, 233);
+  border-radius: $border-radius;
+  background-color: #ffffff;
+
+  .tile-book-image {
+    width: 6rem;
+    height: 8rem;
+    object-fit: cover;
+    display: block;
+  }
+
+  .tile-book-content {
+    padding: 0.5rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .tile-book-title {
+    font-size: 1rem;
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+  }
+
+  .tile-book-author {
+    font-size: 0.875rem;
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+  }
 }

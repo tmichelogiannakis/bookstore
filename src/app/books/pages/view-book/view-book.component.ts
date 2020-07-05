@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Subject } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 import { map, takeUntil } from 'rxjs/operators';
 import { BreadcrumbService } from '../../../core/services/breadcrumb.service';
 import { Book } from '../../../core/models/book.model';
@@ -14,11 +14,13 @@ import { BookGenre } from '../../../core/models/book-genre.model';
 export class ViewBookComponent implements OnInit, OnDestroy {
   private unsubscribe: Subject<void> = new Subject();
   book: Book;
+  similarBooks$: Observable<Book[]>;
   bookGenreMap: { [key: string]: string };
 
   constructor(private route: ActivatedRoute, private breadcrumbService: BreadcrumbService) {}
 
   ngOnInit(): void {
+    this.similarBooks$ = this.route.data.pipe(map((data) => data.similarBooks));
     this.route
       .parent!.data.pipe(
         map((data) => data.bookGenres),
