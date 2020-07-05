@@ -7,7 +7,7 @@
 }
 
 .ui-chkbox .ui-chkbox-box {
-  border: 2px solid rgba(0, 0, 0, 0.54);
+  border: 1px solid rgb(50, 49, 48);
   background-color: #ffffff;
   width: 1rem;
   height: 1rem;
@@ -22,11 +22,11 @@
 }
 
 .ui-chkbox .ui-chkbox-box:not(.ui-state-disabled):hover {
-  border-color: #212121;
+  border-color: rgb(50, 49, 48);
 }
 
 .ui-chkbox .ui-chkbox-box.ui-state-focus {
-  border-color: #212121;
+  border-color: rgb(50, 49, 48);
 }
 
 .ui-chkbox .ui-chkbox-box.ui-state-active {
