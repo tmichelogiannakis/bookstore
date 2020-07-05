@@ -7,7 +7,7 @@ import { takeUntil, filter, map } from 'rxjs/operators';
 import { CustomValidators } from '../../../shared/custom.validators';
 import { BooksService } from '../../services/books.service';
 import { BookGenre } from '../../../core/models/book-genre.model';
-import { BreadcrumbService } from 'src/app/core/services/breadcrumb.service';
+import { BreadcrumbService } from '../../../core/services/breadcrumb.service';
 
 @Component({
   selector: 'app-add-book',
@@ -61,7 +61,8 @@ export class AddBookComponent implements OnInit, OnDestroy {
       published: this.fb.control(null, [Validators.required, CustomValidators.range(1900, dt.getFullYear())]),
       publisher: this.fb.control(null, [Validators.required, Validators.minLength(5), Validators.maxLength(60)]),
       // validate website address
-      website: this.fb.control(null, Validators.pattern(`(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?`))
+      website: this.fb.control(null, Validators.pattern(`(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?`)),
+      image: this.fb.control(null)
     });
   }
 

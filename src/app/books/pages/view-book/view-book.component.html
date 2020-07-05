@@ -1,6 +1,6 @@
 <div class="p-grid p-my-3">
-  <div class="p-col-fixed">
-    <img src="./assets/images/missing-image.jpg" />
+  <div class="p-col-fixed column-left">
+    <img [src]="book.image || './assets/images/missing-image.jpg'" [alt]="book.title" class="img-fluid" />
   </div>
   <div class="p-col">
     <h1 class="p-my-0">{{ book.title }}</h1>
@@ -29,9 +29,7 @@
   </div>
 </div>
 <div class="p-grid">
-  <div class="p-col">
-
-  </div>
+  <div class="p-col"></div>
   <div class="p-col-fixed">
     <button pButton type="button" label="BACK" [routerLink]="['../../']"></button>
   </div>
