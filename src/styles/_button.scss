@@ -124,7 +124,7 @@
 // size
 .ui-button.ui-button-sm {
   &.ui-button-text-only {
-    min-width: unset;
+    min-width: 3.5rem;
     .ui-button-text {
       padding: 0.25rem 0.5rem;
       width: 100%;
