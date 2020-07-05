@@ -47,13 +47,20 @@ export class HttpMockRequestInterceptor implements HttpInterceptor {
         }
 
         if (url.endsWith('/books') && method === 'POST') {
-          return from(fileToBase64(body.image)).pipe(
-            mergeMap((base64String) => {
-              return of(new HttpResponse({ status: 200, body: { ...body, image: base64String } })).pipe(
-                tap((data) => {
-                  this.storeBook(data.body);
-                })
-              );
+          if (body.image) {
+            return from(fileToBase64(body.image)).pipe(
+              mergeMap((base64String) => {
+                return of(new HttpResponse({ status: 200, body: { ...body, image: base64String } })).pipe(
+                  tap((data) => {
+                    this.storeBook(data.body);
+                  })
+                );
+              })
+            );
+          }
+          return of(new HttpResponse({ status: 200, body: { ...body, image: undefined } })).pipe(
+            tap((data) => {
+              this.storeBook(data.body);
             })
           );
         }
@@ -61,13 +68,20 @@ export class HttpMockRequestInterceptor implements HttpInterceptor {
         if (url.match(/\/books\/\d+$/) && method === 'PUT') {
           const urlParts = url.split('/');
           const isbn = urlParts[urlParts.length - 1];
-          return from(fileToBase64(body.image)).pipe(
-            mergeMap((base64String) => {
-              return of(new HttpResponse({ status: 200, body: { ...body, image: base64String } })).pipe(
-                tap((data) => {
-                  this.updateBook(isbn, data.body);
-                })
-              );
+          if (body.image) {
+            return from(fileToBase64(body.image)).pipe(
+              mergeMap((base64String) => {
+                return of(new HttpResponse({ status: 200, body: { ...body, image: base64String } })).pipe(
+                  tap((data) => {
+                    this.updateBook(isbn, data.body);
+                  })
+                );
+              })
+            );
+          }
+          return of(new HttpResponse({ status: 200, body: { ...body, image: undefined } })).pipe(
+            tap((data) => {
+              this.updateBook(isbn, data.body);
             })
           );
         }
