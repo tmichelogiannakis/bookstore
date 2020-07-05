@@ -1,5 +1,17 @@
 @import '~src/styles/variables';
 
+.list-item-book {
+  margin-bottom: 0.5rem;
+  .list-item-book-image {
+    width: 12rem;
+    height: 16rem;
+    display: flex;
+    align-items: center;
+    background-color: #eeeeee;
+    padding: 0;
+  }
+}
+
 .tile-book {
   padding: 0.5rem;
   border: 1px solid rgba(0, 0, 0, 0.125);
@@ -8,9 +20,10 @@
 
 .tile-book-image {
   line-height: 0;
-  img {
-    width: 7.5rem;
-  }
+  width: 6rem;
+  height: 8rem;
+  display: flex;
+  background-color: #eeeeee;
 }
 
 .tile-book-content {
