@@ -4,7 +4,6 @@
     <a pButton [icon]="'pi pi-plus'" label="Add Another Book" class="ui-button-primary" [routerLink]="['./']"></a>
   </div>
 </div>
-
 <form [formGroup]="form" (ngSubmit)="submit()" class="p-mb-3">
   <div class="p-grid">
     <div class="p-col-12 p-sm-6">
@@ -71,7 +70,7 @@
       <div class="p-field">
         <label for="title">Image</label>
         <div>
-          <img src="./assets/images/missing-image.jpg" />
+          <app-fileupload formControlName="image"></app-fileupload>
         </div>
       </div>
     </div>
