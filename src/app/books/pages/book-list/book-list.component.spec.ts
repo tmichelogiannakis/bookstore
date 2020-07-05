@@ -5,6 +5,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { of } from 'rxjs';
 import { BookListComponent } from './book-list.component';
 import { Book } from '../../../core/models/book.model';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 const books: Book[] = [
   {
@@ -39,7 +40,7 @@ describe('BookListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule],
+      imports: [RouterTestingModule, HttpClientTestingModule],
       providers: [{ provide: ActivatedRoute, useValue: { data: of({ books }), snapshot: { data: { books } }, params: of(null) } as any }],
       declarations: [BookListComponent],
       schemas: [NO_ERRORS_SCHEMA]
@@ -57,8 +58,6 @@ describe('BookListComponent', () => {
   });
 
   it('should get books from ActivatedRoute', () => {
-    component.books$.subscribe((data) => {
-      expect(data).toEqual(books);
-    });
+    expect(component.books).toEqual(books);
   });
 });
