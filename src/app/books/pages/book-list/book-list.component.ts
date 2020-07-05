@@ -1,11 +1,11 @@
-import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { DataView } from 'primeng/dataview';
 import { Observable, Subject } from 'rxjs';
 import { map, takeUntil } from 'rxjs/operators';
-import { ConfirmationService } from 'primeng/api';
+import { ConfirmationService, SelectItem } from 'primeng/api';
 import { Book } from '../../../core/models/book.model';
 import { BooksService } from '../../services/books.service';
+import { BookGenre } from '../../../core/models/book-genre.model';
 
 @Component({
   selector: 'app-book-list',
@@ -15,8 +15,31 @@ import { BooksService } from '../../services/books.service';
 })
 export class BookListComponent implements OnInit, OnDestroy {
   private unsubscribe: Subject<void> = new Subject();
-  @ViewChild('dv') dv: DataView;
   books: Book[];
+  genreSelectItems$: Observable<SelectItem[]>;
+
+  globalFilter: {
+    fields: string[];
+    value: string;
+  } = {
+    fields: ['title'],
+    value: ''
+  };
+
+  filters: {
+    [field: string]: {
+      value: any;
+      matchMode?: string;
+    };
+  } = {
+    categories: {
+      value: null,
+      matchMode: 'in'
+    },
+    global: {
+      value: null
+    }
+  };
 
   constructor(private route: ActivatedRoute, private confirmationService: ConfirmationService, private bookService: BooksService) {}
 
@@ -27,6 +50,12 @@ export class BookListComponent implements OnInit, OnDestroy {
         map((data) => data.books)
       )
       .subscribe((books) => (this.books = books));
+
+    this.genreSelectItems$ = this.route.parent!.data.pipe(
+      takeUntil(this.unsubscribe),
+      map((data) => data.bookGenres),
+      map((bookGenres: BookGenre[]) => bookGenres.map((g) => ({ label: g.label, value: g.id })))
+    );
   }
 
   ngOnDestroy(): void {
@@ -34,13 +63,8 @@ export class BookListComponent implements OnInit, OnDestroy {
     this.unsubscribe.complete();
   }
 
-  booksTrackByFn(index: number, item: Book) {
-    return item.isbn;
-  }
-
-  // InputEvent from input field to filter book in dataview
-  filterBooksFn(event: any) {
-    this.dv.filter(event.target.value, 'contains');
+  filter(event: any) {
+    this.filters = { ...this.filters };
   }
 
   confirmDeletion(book: Book): void {

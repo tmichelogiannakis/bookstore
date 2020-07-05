@@ -1,1 +1,58 @@
-<p>dataview works!</p>
+<p-dataView #dv [value]="filteredItems" [layout]="'grid'" [filterBy]="'title,author'">
+  <p-header>
+    <div class="p-grid">
+      <div class="p-col-auto">
+        <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+      </div>
+    </div>
+  </p-header>
+  <ng-template let-book pTemplate="listItem">
+    <article class="p-col-12 list-item-book">
+      <div class="p-grid">
+        <div class="p-col-fixed">
+          <img [src]="book.image || './assets/images/missing-image.png'" [alt]="book.title" class="list-item-book-image" />
+        </div>
+        <div class="p-col">
+          <div class="list-item-book-content">
+            <div>
+              <h4 class="list-item-book-title">{{ book.title }}</h4>
+              <p class="list-item-book-author">by {{ book.author | array: ', ' }}</p>
+              <div>{{ book.description }}</div>
+            </div>
+            <div class="p-grid p-nogutter p-justify-end">
+              <!-- <div class="p-pr-2">
+                  <a pButton class="ui-button-primary" [routerLink]="[book.isbn]" [label]="'EDIT'"></a>
+                  <a pButton [routerLink]="[book.isbn, 'view']" [label]="'VIEW'"></a>
+                  <a pButton class="ui-button-danger" (click)="confirmDeletion(book)" [label]="'DELETE'"></a>
+                </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+  </ng-template>
+  <ng-template let-book pTemplate="gridItem">
+    <div class="p-col-12 p-sm-6 p-md-4 p-p-1">
+      <article class="p-grid p-nogutter tile-book">
+        <div class="p-col-fixed">
+          <img [src]="book.image || './assets/images/missing-image.png'" [alt]="book.title" class="tile-book-image" />
+        </div>
+        <div class="p-col">
+          <div class="tile-book-content">
+            <div>
+              <h4 class="tile-book-title">{{ book.title }}</h4>
+              <p class="tile-book-author">by {{ book.author | array: ', ' }}</p>
+            </div>
+            <div class="p-grid p-nogutter p-justify-end">
+              <!-- <div>
+                  <a pButton class="ui-button-sm ui-button-primary" [routerLink]="[book.isbn]" [label]="'EDIT'"></a>
+                  <a pButton class="ui-button-sm" [routerLink]="[book.isbn, 'view']" [label]="'VIEW'"></a>
+                  <a pButton class="ui-button-sm ui-button-danger" (click)="confirmDeletion(book)" [label]="'DELETE'"></a>
+                </div> -->
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </ng-template>
+</p-dataView>

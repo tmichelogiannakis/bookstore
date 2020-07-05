@@ -4,9 +4,35 @@
     <a pButton [icon]="'pi pi-plus'" label="Add Book" class="ui-button-flat ui-button-primary" [routerLink]="['add']"></a>
   </div>
 </div>
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
+<div class="filter-area">
+  <div class="p-grid p-align-center">
+    <div class="p-col-fixed">
+      <label for="search"> <i class="pi pi-filter"></i></label>
+    </div>
+    <div class="p-col-12 p-sm-6 p-md-4">
+      <input type="search" id="search" pInputText [(ngModel)]="globalFilter.value" (input)="filter($event)" />
+    </div>
+    <div class="p-col-12 p-sm-6 p-md-2">
+      <ng-container *ngIf="genreSelectItems$ | async as genreSelectItems">
+        <p-multiSelect
+          (onChange)="filter($event)"
+          [(ngModel)]="filters.categories.value"
+          [options]="genreSelectItems"
+          [selectionLimit]="8"
+          [maxSelectedLabels]="1"
+          [selectedItemsLabel]="'{0} categories selected'"
+          [inputId]="'categories'"
+          [defaultLabel]="'Categories'"
+          [showToggleAll]="false"
+        ></p-multiSelect>
+      </ng-container>
+    </div>
+  </div>
+</div>
+
 <div class="p-mb-3">
-  <p-dataView #dv [value]="books" [layout]="'grid'" [filterBy]="'title,author'">
+  <app-dataview [items]="books" [globalFilter]="globalFilter" [filters]="filters"></app-dataview>
+  <!-- <p-dataView #dv [value]="books" [layout]="'grid'" [filterBy]="'title,author'">
     <p-header>
       <div class="p-grid">
         <div class="p-col-auto">
@@ -15,9 +41,9 @@
         <div class="p-col">
           <div class="p-grid p-align-center">
             <div class="p-col-fixed">
-              Search
+              <label for="search">Search</label>
             </div>
-            <div class="p-col"><input type="search" pInputText (input)="filterBooksFn($event)" /></div>
+            <div class="p-col"><input type="search" id="search" pInputText (input)="filterBooksFn($event)" /></div>
           </div>
         </div>
       </div>
@@ -29,10 +55,11 @@
             <img [src]="book.image || './assets/images/missing-image.png'" [alt]="book.title" class="list-item-book-image" />
           </div>
           <div class="p-col">
-            <div class="tile-book-content">
+            <div class="list-item-book-content">
               <div>
-                <h4 class="tile-book-title">{{ book.title }}</h4>
-                <p class="tile-book-author">by {{ book.author | array: ', ' }}</p>
+                <h4 class="list-item-book-title">{{ book.title }}</h4>
+                <p class="list-item-book-author">by {{ book.author | array: ', ' }}</p>
+                <div>{{ book.description }}</div>
               </div>
               <div class="p-grid p-nogutter p-justify-end">
                 <div class="p-pr-2">
@@ -70,7 +97,7 @@
         </article>
       </div>
     </ng-template>
-  </p-dataView>
+  </p-dataView> -->
 </div>
 
 <p-confirmDialog #cd appendTo="body" styleClass="ui-dialog-headless" [closable]="false">
