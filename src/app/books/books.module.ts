@@ -32,6 +32,14 @@ const routes: Route[] = [
         runGuardsAndResolvers: 'always'
       },
       {
+        path: ':isbn',
+        component: AddBookComponent,
+        canDeactivate: [CanDeactivateBookGuard],
+        resolve: {
+          book: BookResolver
+        }
+      },
+      {
         path: ':isbn/view',
         component: ViewBookComponent,
         resolve: {
