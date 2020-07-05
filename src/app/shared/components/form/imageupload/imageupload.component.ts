@@ -2,18 +2,18 @@ import { Component, Input } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 
 @Component({
-  selector: 'app-fileupload',
-  templateUrl: './fileupload.component.html',
-  styleUrls: ['./fileupload.component.scss'],
+  selector: 'app-imageupload',
+  templateUrl: './imageupload.component.html',
+  styleUrls: ['./imageupload.component.scss'],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: FileuploadComponent,
+      useExisting: ImageuploadComponent,
       multi: true
     }
   ]
 })
-export class FileuploadComponent implements ControlValueAccessor {
+export class ImageuploadComponent implements ControlValueAccessor {
   @Input() disabled = false;
 
   @Input()

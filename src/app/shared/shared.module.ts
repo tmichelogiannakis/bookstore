@@ -4,9 +4,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { PrimengModule } from './primeng/primeng.module';
 import { ArrayPipe } from './pipes/array.pipe';
-import { FileuploadComponent } from './components/form/fileupload/fileupload.component';
+import { ImageuploadComponent } from './components/form/imageupload/imageupload.component';
 
-const components = [FileuploadComponent];
+const components = [ImageuploadComponent];
 
 @NgModule({
   declarations: [...components, ArrayPipe],
