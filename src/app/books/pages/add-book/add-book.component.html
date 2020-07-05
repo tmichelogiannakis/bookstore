@@ -1,7 +1,11 @@
 <div class="p-grid p-align-center">
-  <div class="p-col"><h1>Add new Book</h1></div>
+  <div class="p-col">
+    <h1>
+      {{ isEditMode ? 'Edit Book' : 'Add new Book' }}
+    </h1>
+  </div>
   <div class="p-col-fixed">
-    <a pButton [icon]="'pi pi-plus'" label="Add Another Book" class="ui-button-primary" [routerLink]="['./']"></a>
+    <a pButton [icon]="'pi pi-plus'" label="Add Another Book" class="ui-button-primary" [routerLink]="['../', 'add']"></a>
   </div>
 </div>
 <form [formGroup]="form" (ngSubmit)="submit()" class="p-mb-3">
@@ -56,7 +60,7 @@
       </div>
       <div class="p-field">
         <label for="isbn">ISBN</label>
-        <input id="isbn" type="text" pInputText formControlName="isbn" aria-describedby="isbn-help" />
+        <input id="isbn" type="text" pInputText formControlName="isbn" aria-describedby="isbn-help"/>
         <ng-container *ngIf="form.controls.isbn.touched">
           <ng-container *ngIf="form.controls.isbn.errors as errors">
             <small id="isbn-help" class="invalid-feedback">
