@@ -42,6 +42,12 @@ export class HttpMockRequestInterceptor implements HttpInterceptor {
           return of(new HttpResponse({ status: 200, body: (bookGenresJSON as any).default }));
         }
 
+        if (url.endsWith('/similar') && method === 'GET') {
+          // Shuffle array
+          const shuffled = this.books.sort(() => 0.5 - Math.random());
+          return of(new HttpResponse({ status: 200, body: shuffled.slice(0, 3) }));
+        }
+
         if (url.endsWith('/books') && method === 'GET') {
           return of(new HttpResponse({ status: 200, body: this.books }));
         }
