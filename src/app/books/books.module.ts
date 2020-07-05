@@ -5,6 +5,7 @@ import { BooksComponent } from './books.component';
 import { BookGenresResolver } from './resolvers/book-genres.resolver';
 import { BooksResolver } from './resolvers/books.resolver';
 import { BookResolver } from './resolvers/book.resolver';
+import { SimilarBooksResolver } from './resolvers/similar-books.resolver';
 import { BookListComponent } from './pages/book-list/book-list.component';
 import { CanDeactivateBookGuard } from './guards/can-deactivate-book.guard';
 import { ViewBookComponent } from './pages/view-book/view-book.component';
@@ -43,7 +44,8 @@ const routes: Route[] = [
         path: ':isbn/view',
         component: ViewBookComponent,
         resolve: {
-          book: BookResolver
+          book: BookResolver,
+          similarBooks: SimilarBooksResolver
         }
       }
     ]

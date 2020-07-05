@@ -35,6 +35,10 @@ export class BooksService {
     return this.http.get<Book>(`${this.endpoints.books}/${isbn}`);
   }
 
+  getSimilarBooks(isbn: string): Observable<Book[]> {
+    return this.http.get<Book[]>(`${this.endpoints.books}/${isbn}/similar`);
+  }
+
   getAllBookGenres(): Observable<BookGenre[]> {
     return this.http.get<BookGenre[]>(this.endpoints.booksGenres);
   }
