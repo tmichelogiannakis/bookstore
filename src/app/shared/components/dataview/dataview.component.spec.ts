@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { DataviewComponent } from './dataview.component';
 
 describe('DataviewComponent', () => {
@@ -8,9 +8,9 @@ describe('DataviewComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DataviewComponent ]
-    })
-    .compileComponents();
+      declarations: [DataviewComponent],
+      schemas: [NO_ERRORS_SCHEMA]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

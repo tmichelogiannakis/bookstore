@@ -31,7 +31,9 @@
       <ng-template ngFor let-rowData let-rowIndex="index" [ngForOf]="filteredItems" [ngForTrackBy]="trackBy">
         <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: rowData, rowIndex: rowIndex }"></ng-container>
       </ng-template>
-      <div *ngIf="filteredItems === null || filteredItems.length === 0" class="p-col-12 ui-dataview-emptymessage">{{ emptyMessage }}</div>
+      <div *ngIf="filteredItems === null || (filteredItems && filteredItems.length === 0)" class="p-col-12 ui-dataview-emptymessage">
+        {{ emptyMessage }}
+      </div>
     </div>
   </div>
 </div>

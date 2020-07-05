@@ -6,6 +6,7 @@ import { of } from 'rxjs';
 import { BookListComponent } from './book-list.component';
 import { Book } from '../../../core/models/book.model';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { BookGenre } from '../../../core/models/book-genre.model';
 
 const books: Book[] = [
   {
@@ -34,6 +35,17 @@ const books: Book[] = [
   }
 ];
 
+const bookGenres: BookGenre[] = [
+  {
+    label: 'Classic',
+    id: 'c1'
+  },
+  {
+    label: 'Crime/detective',
+    id: 'c2'
+  }
+];
+
 describe('BookListComponent', () => {
   let component: BookListComponent;
   let fixture: ComponentFixture<BookListComponent>;
@@ -41,7 +53,17 @@ describe('BookListComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule, HttpClientTestingModule],
-      providers: [{ provide: ActivatedRoute, useValue: { data: of({ books }), snapshot: { data: { books } }, params: of(null) } as any }],
+      providers: [
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            data: of({ books }),
+            snapshot: { data: { books } },
+            params: of(null),
+            parent: { data: of({ bookGenres }), snapshot: { data: { bookGenres } }, params: of(null) }
+          } as any
+        }
+      ],
       declarations: [BookListComponent],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
