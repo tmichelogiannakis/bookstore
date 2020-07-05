@@ -1,8 +1,9 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Observable } from 'rxjs';
 import { delay } from 'rxjs/operators';
 import { BreadcrumbService } from './core/services/breadcrumb.service';
+import { AppStateService } from './core/services/app-state.service';
 
 @Component({
   selector: 'app-root',
@@ -10,17 +11,20 @@ import { BreadcrumbService } from './core/services/breadcrumb.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  opened: boolean = true;
+  sideBarOpened: boolean = true;
+
+  loading$: Observable<boolean>;
 
   breadcrumbItems$: Observable<MenuItem[]>;
 
-  constructor(private breadcrumbService: BreadcrumbService, private cdr: ChangeDetectorRef) {}
+  constructor(private breadcrumbService: BreadcrumbService, private appStateService: AppStateService) {}
 
   ngOnInit() {
     this.breadcrumbItems$ = this.breadcrumbService.breadcrumbItems$.pipe(delay(0));
+    this.loading$ = this.appStateService.loading$;
   }
 
   onToggleSidebar() {
-    this.opened = !this.opened;
+    this.sideBarOpened = !this.sideBarOpened;
   }
 }
