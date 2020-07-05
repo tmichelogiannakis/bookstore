@@ -16,6 +16,9 @@
 
   .ui-fileupload-buttonbar {
     padding: 0;
+    .ui-button {
+      border: none;
+    }
     .ui-fileupload-book-toolbar-photo {
       img {
         width: 12rem;

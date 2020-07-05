@@ -7,6 +7,9 @@
 
 .list-item-book {
   margin-bottom: 0.5rem;
+  background-color: #ffffff;
+  border: 1px solid rgb(237, 235, 233);
+
   .list-item-book-image {
     width: 12rem;
     height: 16rem;
@@ -14,7 +17,7 @@
     display: block;
   }
   .list-item-book-content {
-    padding-left: 0.5rem;
+    padding: 0.5rem;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -33,39 +36,35 @@
   }
 }
 
-/* <h4 class="list-item-book-title">{{ book.title }}</h4>
-<p class="list-item-book-subtitle">{{ book.subtitle }}</p>
-<p class="list-item-book-author">by {{ book.author | array: ', ' }}</p> */
-
 .tile-book {
-  padding: 0.5rem;
-  border: 1px solid rgba(0, 0, 0, 0.125);
+  border: 1px solid rgb(237, 235, 233);
   border-radius: $border-radius;
-}
+  background-color: #ffffff;
 
-.tile-book-image {
-  width: 6rem;
-  height: 8rem;
-  object-fit: cover;
-  display: block;
-}
+  .tile-book-image {
+    width: 6rem;
+    height: 8rem;
+    object-fit: cover;
+    display: block;
+  }
 
-.tile-book-content {
-  padding-left: 0.5rem;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
+  .tile-book-content {
+    padding: 0.5rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
 
-.tile-book-title {
-  font-size: 1rem;
-  margin-top: 0;
-  margin-bottom: 0.5rem;
-}
+  .tile-book-title {
+    font-size: 1rem;
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+  }
 
-.tile-book-author {
-  font-size: 0.875rem;
-  margin-top: 0;
-  margin-bottom: 0.5rem;
+  .tile-book-author {
+    font-size: 0.875rem;
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+  }
 }

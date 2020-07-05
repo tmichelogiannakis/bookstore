@@ -1,17 +1,27 @@
-import { Component, Input, OnChanges, SimpleChanges, TemplateRef, ContentChildren, QueryList } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  SimpleChanges,
+  TemplateRef,
+  ContentChildren,
+  QueryList,
+  ChangeDetectionStrategy
+} from '@angular/core';
 import { isEmptyInputValue } from '../../utils';
 import { PrimeTemplate } from 'primeng/api';
 
 @Component({
   selector: 'app-dataview',
   templateUrl: './dataview.component.html',
-  styleUrls: ['./dataview.component.scss']
+  styleUrls: ['./dataview.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DataviewComponent implements OnChanges {
   @Input()
   layout: string = 'grid';
 
-  @Input() 
+  @Input()
   emptyMessage: string = 'No records found';
 
   @Input()
