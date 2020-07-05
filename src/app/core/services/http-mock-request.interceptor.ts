@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpRequest, HttpInterceptor, HttpHandler, HttpEvent, HttpResponse } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { Observable, of, from } from 'rxjs';
 import { delay, mergeMap, tap } from 'rxjs/operators';
 import { Book } from '../models/book.model';
 import * as booksJSON from './data/books.json';
@@ -37,9 +37,23 @@ export class HttpMockRequestInterceptorService implements HttpInterceptor {
         }
 
         if (url.endsWith('/books') && method === 'POST') {
-          return of(new HttpResponse({ status: 200, body: body })).pipe(
-            tap((data) => {
-              this.storeBook(data.body);
+          const fileToBase64 = (file: File): Promise<string> => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            return new Promise<string>((resolve) => {
+              reader.onloadend = () => {
+                resolve(reader.result as string);
+              };
+            });
+          };
+
+          return from(fileToBase64(body.image)).pipe(
+            mergeMap((base64String) => {
+              return of(new HttpResponse({ status: 200, body: { ...body, image: base64String } })).pipe(
+                tap((data) => {
+                  this.storeBook(data.body);
+                })
+              );
             })
           );
         }
