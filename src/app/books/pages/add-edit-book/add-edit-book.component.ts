@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
+import { Router, ActivatedRoute, NavigationEnd, Params } from '@angular/router';
 import { ConfirmationService, SelectItem } from 'primeng/api';
 import { Subject } from 'rxjs';
 import { takeUntil, filter, map } from 'rxjs/operators';
@@ -10,14 +10,15 @@ import { BookGenre } from '../../../core/models/book-genre.model';
 import { BreadcrumbService } from '../../../core/services/breadcrumb.service';
 
 @Component({
-  selector: 'app-add-book',
-  templateUrl: './add-book.component.html',
-  styleUrls: ['./add-book.component.scss'],
+  selector: 'app-add-edit-book',
+  templateUrl: './add-edit-book.component.html',
+  styleUrls: ['./add-edit-book.component.scss'],
   providers: [ConfirmationService]
 })
-export class AddBookComponent implements OnInit, OnDestroy {
+export class AddEditBookComponent implements OnInit, OnDestroy {
   private unsubscribe: Subject<void> = new Subject();
   form: FormGroup;
+  isEditMode: boolean;
   genreSelectItems: SelectItem[];
 
   constructor(
@@ -67,12 +68,6 @@ export class AddBookComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.breadcrumbService.pushItem({
-      id: 'books-add',
-      label: 'New',
-      routerLink: ['/books', 'add']
-    });
-
     // If it is a NavigationEnd event re-initalise the component
     this.router.events
       .pipe(
@@ -81,7 +76,7 @@ export class AddBookComponent implements OnInit, OnDestroy {
       )
       .subscribe(() => {
         this.form.reset();
-        this.form.updateValueAndValidity();
+        this.form.markAsPristine();
       });
 
     this.route
@@ -92,10 +87,42 @@ export class AddBookComponent implements OnInit, OnDestroy {
       .subscribe((bookGenres: BookGenre[]) => {
         this.genreSelectItems = bookGenres.map((g) => ({ label: g.label, value: g.id }));
       });
+
+    this.route.params.pipe(takeUntil(this.unsubscribe)).subscribe((params: Params) => {
+      if (params && params.isbn) {
+        const { isbn } = params;
+        this.isEditMode = true;
+
+        const { book } = this.route.snapshot.data;
+
+        this.breadcrumbService.pushItem({
+          id: 'books-edit',
+          label: book.isbn,
+          routerLink: ['/books', book.isbn]
+        });
+
+        let published = book.published;
+        if (isNaN(Number(published))) {
+          published = new Date(published).getFullYear();
+        }
+        let author = book.author;
+        if (!Array.isArray(author)) {
+          author = [author];
+        }
+        this.form.patchValue({ ...book, published, author });
+        this.form.get('isbn')?.disable();
+      } else {
+        this.breadcrumbService.pushItem({
+          id: 'books-add',
+          label: 'New',
+          routerLink: ['/books', 'add']
+        });
+      }
+    });
   }
 
   ngOnDestroy(): void {
-    this.breadcrumbService.removeItem('books-add');
+    this.breadcrumbService.removeItem(this.isEditMode ? 'books-edit' : 'books-add');
     this.unsubscribe.next();
     this.unsubscribe.complete();
   }
@@ -103,14 +130,24 @@ export class AddBookComponent implements OnInit, OnDestroy {
   submit(): void {
     this.form.markAllAsTouched();
     if (this.form.valid) {
-      const value = this.form.value;
-      this.booksService
-        .createBook(value)
-        .pipe(takeUntil(this.unsubscribe))
-        .subscribe(() => {
-          this.form.markAsPristine();
-          this.router.navigate(['../'], { relativeTo: this.route });
-        });
+      const value = this.form.getRawValue();
+      if (this.isEditMode) {
+        this.booksService
+          .updateBook(value.isbn, value)
+          .pipe(takeUntil(this.unsubscribe))
+          .subscribe(() => {
+            this.form.markAsPristine();
+            this.router.navigate(['../'], { relativeTo: this.route });
+          });
+      } else {
+        this.booksService
+          .createBook(value)
+          .pipe(takeUntil(this.unsubscribe))
+          .subscribe(() => {
+            this.form.markAsPristine();
+            this.router.navigate(['../'], { relativeTo: this.route });
+          });
+      }
     }
   }
 }

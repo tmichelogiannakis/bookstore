@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { AddBookComponent } from './add-book.component';
+import { AddEditBookComponent } from './add-edit-book.component';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { ChipsModule } from 'primeng/chips';
 import { BookGenre } from '../../../core/models/book-genre.model';
@@ -23,9 +23,9 @@ const bookGenres: BookGenre[] = [
   }
 ];
 
-describe('AddBookComponent', () => {
-  let component: AddBookComponent;
-  let fixture: ComponentFixture<AddBookComponent>;
+describe('AddEditBookComponent', () => {
+  let component: AddEditBookComponent;
+  let fixture: ComponentFixture<AddEditBookComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -41,13 +41,13 @@ describe('AddBookComponent', () => {
           } as any
         }
       ],
-      declarations: [AddBookComponent, ArrayPipe, ImageuploadComponent],
+      declarations: [AddEditBookComponent, ArrayPipe, ImageuploadComponent],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AddBookComponent);
+    fixture = TestBed.createComponent(AddEditBookComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

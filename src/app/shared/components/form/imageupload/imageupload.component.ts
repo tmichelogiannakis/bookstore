@@ -16,7 +16,6 @@ import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 export class ImageuploadComponent implements ControlValueAccessor {
   @Input() disabled = false;
 
-  @Input()
   imageUrl = './assets/images/missing-image.png';
 
   onChange = (value: File) => {};
@@ -25,8 +24,10 @@ export class ImageuploadComponent implements ControlValueAccessor {
 
   constructor() {}
 
-  writeValue(value: File): void {
-    this.onChange(value);
+  writeValue(value: string): void {
+    if (value) {
+      this.imageUrl = value;
+    }
   }
 
   registerOnChange(fn: (value: any) => void): void {

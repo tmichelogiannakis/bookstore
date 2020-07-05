@@ -5,10 +5,8 @@
   .list-item-book-image {
     width: 12rem;
     height: 16rem;
-    display: flex;
-    align-items: center;
-    background-color: #eeeeee;
-    padding: 0;
+    object-fit: cover;
+    display: block;
   }
 }
 
@@ -19,11 +17,10 @@
 }
 
 .tile-book-image {
-  line-height: 0;
   width: 6rem;
   height: 8rem;
-  display: flex;
-  background-color: #eeeeee;
+  object-fit: cover;
+  display: block;
 }
 
 .tile-book-content {
