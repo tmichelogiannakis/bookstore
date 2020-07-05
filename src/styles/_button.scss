@@ -8,7 +8,7 @@
   align-items: center;
   color: #000000;
   background-color: #ffffff;
-  transition: all 0.2s;
+  transition: background-color, border-color, shadow, color 0.2s;
   outline: none;
   border-width: 1px;
   border-style: solid;

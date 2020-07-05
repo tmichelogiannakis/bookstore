@@ -7,6 +7,13 @@
   border-radius: $border-radius;
   position: relative;
   overflow: hidden;
+  &:not(.ui-state-disabled):hover {
+    border-color: #212121;
+  }
+
+  &:not(.ui-state-disabled).ui-state-focus {
+    border-color: #212121;
+  }
 
   .ui-fileupload-buttonbar {
     position: absolute;
