@@ -1,5 +1,6 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges, TemplateRef, ContentChildren, QueryList } from '@angular/core';
 import { isEmptyInputValue } from '../../utils';
+import { PrimeTemplate } from 'primeng/api';
 
 @Component({
   selector: 'app-dataview',
@@ -7,10 +8,17 @@ import { isEmptyInputValue } from '../../utils';
   styleUrls: ['./dataview.component.scss']
 })
 export class DataviewComponent implements OnChanges {
+  @Input()
+  layout: string = 'grid';
 
+  @Input() 
+  emptyMessage: string = 'No records found';
 
   @Input()
   items: any[];
+
+  @Input()
+  trackBy: (index: number, item: any) => any;
 
   @Input()
   globalFilter: {
@@ -25,6 +33,14 @@ export class DataviewComponent implements OnChanges {
       matchMode?: string;
     };
   };
+
+  @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+
+  listItemTemplate: TemplateRef<any>;
+
+  gridItemTemplate: TemplateRef<any>;
+
+  itemTemplate: TemplateRef<any>;
 
   filteredItems: any[];
 
@@ -60,5 +76,38 @@ export class DataviewComponent implements OnChanges {
         }
       }
     });
+  }
+
+  ngAfterContentInit() {
+    this.templates.forEach((item) => {
+      switch (item.getType()) {
+        case 'listItem':
+          this.listItemTemplate = item.template;
+          break;
+
+        case 'gridItem':
+          this.gridItemTemplate = item.template;
+          break;
+      }
+    });
+
+    this.updateItemTemplate();
+  }
+
+  updateItemTemplate() {
+    switch (this.layout) {
+      case 'list':
+        this.itemTemplate = this.listItemTemplate;
+        break;
+
+      case 'grid':
+        this.itemTemplate = this.gridItemTemplate;
+        break;
+    }
+  }
+
+  changeLayout(layout: string) {
+    this.layout = layout;
+    this.updateItemTemplate();
   }
 }
