@@ -26,6 +26,16 @@ export class HttpMockRequestInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const { url, method, headers, body } = request;
 
+    const fileToBase64 = (file: File): Promise<string> => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      return new Promise<string>((resolve) => {
+        reader.onloadend = () => {
+          resolve(reader.result as string);
+        };
+      });
+    };
+
     return of(null).pipe(
       mergeMap(() => {
         if (url.endsWith('/book-genres') && method === 'GET') {
@@ -37,21 +47,25 @@ export class HttpMockRequestInterceptor implements HttpInterceptor {
         }
 
         if (url.endsWith('/books') && method === 'POST') {
-          const fileToBase64 = (file: File): Promise<string> => {
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
-            return new Promise<string>((resolve) => {
-              reader.onloadend = () => {
-                resolve(reader.result as string);
-              };
-            });
-          };
-
           return from(fileToBase64(body.image)).pipe(
             mergeMap((base64String) => {
               return of(new HttpResponse({ status: 200, body: { ...body, image: base64String } })).pipe(
                 tap((data) => {
                   this.storeBook(data.body);
+                })
+              );
+            })
+          );
+        }
+
+        if (url.match(/\/books\/\d+$/) && method === 'PUT') {
+          const urlParts = url.split('/');
+          const isbn = urlParts[urlParts.length - 1];
+          return from(fileToBase64(body.image)).pipe(
+            mergeMap((base64String) => {
+              return of(new HttpResponse({ status: 200, body: { ...body, image: base64String } })).pipe(
+                tap((data) => {
+                  this.updateBook(isbn, data.body);
                 })
               );
             })
@@ -73,6 +87,16 @@ export class HttpMockRequestInterceptor implements HttpInterceptor {
 
   private storeBook(book: Book) {
     this.books.push(book);
+    storeBooks(this.books);
+  }
+
+  private updateBook(isbn: string, book: Book) {
+    this.books = this.books.map((b: Book) => {
+      if (b.isbn === isbn) {
+        return book;
+      }
+      return b;
+    });
     storeBooks(this.books);
   }
 }

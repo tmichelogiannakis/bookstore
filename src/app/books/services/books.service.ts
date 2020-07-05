@@ -23,6 +23,10 @@ export class BooksService {
     return this.http.post<Book>(this.endpoints.books, payload);
   }
 
+  updateBook(isbn: string, payload: Book): Observable<Book> {
+    return this.http.put<Book>(`${this.endpoints.books}/${isbn}`, payload);
+  }
+
   getBook(isbn: string): Observable<Book> {
     return this.http.get<Book>(`${this.endpoints.books}/${isbn}`);
   }
