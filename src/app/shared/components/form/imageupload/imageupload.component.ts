@@ -25,7 +25,9 @@ export class ImageuploadComponent implements ControlValueAccessor {
   constructor() {}
 
   writeValue(value: string): void {
-    this.imageUrl = value;
+    if (value) {
+      this.imageUrl = value;
+    }
   }
 
   registerOnChange(fn: (value: any) => void): void {
