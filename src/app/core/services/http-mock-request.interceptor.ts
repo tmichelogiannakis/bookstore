@@ -16,7 +16,7 @@ const storeBooks = (books: Book[]) => {
 };
 
 @Injectable()
-export class HttpMockRequestInterceptorService implements HttpInterceptor {
+export class HttpMockRequestInterceptor implements HttpInterceptor {
   private books: Book[];
 
   constructor() {

@@ -5,7 +5,8 @@ import { SidebarModule } from 'ng-sidebar';
 import { SharedModule } from '../shared/shared.module';
 import { HeaderComponent } from './components/header/header.component';
 import { SidebarContainerComponent } from './components/sidebar-container/sidebar-container.component';
-import { HttpMockRequestInterceptorService } from './services/http-mock-request.interceptor';
+import { HttpRequestInterceptor } from './services/http-request.interceptor';
+import { HttpMockRequestInterceptor } from './services/http-mock-request.interceptor';
 import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
 
 @NgModule({
@@ -15,7 +16,12 @@ import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.componen
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: HttpMockRequestInterceptorService,
+      useClass: HttpRequestInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpMockRequestInterceptor,
       multi: true
     }
   ]
