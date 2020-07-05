@@ -1,0 +1,18 @@
+<p-fileUpload
+  styleClass="ui-fileupload-book"
+  name="myfile[]"
+  [customUpload]="true"
+  [auto]="true"
+  (uploadHandler)="uploadHandler($event)"
+  [accept]="'image/*'"
+  [maxFileSize]="262144"
+>
+  <ng-template pTemplate="toolbar">
+    <div class="ui-fileupload-book-toolbar-photo">
+      <img [src]="imageUrl" />
+    </div>
+  </ng-template>
+  <ng-template let-file pTemplate="file">
+    <img [src]="file.objectURL" />
+  </ng-template>
+</p-fileUpload>
