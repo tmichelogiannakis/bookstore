@@ -35,36 +35,3 @@
     }
   }
 }
-
-.tile-book {
-  border: 1px solid rgb(237, 235, 233);
-  border-radius: $border-radius;
-  background-color: #ffffff;
-
-  .tile-book-image {
-    width: 6rem;
-    height: 8rem;
-    object-fit: cover;
-    display: block;
-  }
-
-  .tile-book-content {
-    padding: 0.5rem;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-
-  .tile-book-title {
-    font-size: 1rem;
-    margin-top: 0;
-    margin-bottom: 0.5rem;
-  }
-
-  .tile-book-author {
-    font-size: 0.875rem;
-    margin-top: 0;
-    margin-bottom: 0.5rem;
-  }
-}

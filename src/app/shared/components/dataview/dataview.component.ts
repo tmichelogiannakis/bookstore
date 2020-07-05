@@ -6,7 +6,8 @@ import {
   TemplateRef,
   ContentChildren,
   QueryList,
-  ChangeDetectionStrategy
+  ChangeDetectionStrategy,
+  AfterContentInit
 } from '@angular/core';
 import { isEmptyInputValue } from '../../utils';
 import { PrimeTemplate } from 'primeng/api';
@@ -17,7 +18,7 @@ import { PrimeTemplate } from 'primeng/api';
   styleUrls: ['./dataview.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DataviewComponent implements OnChanges {
+export class DataviewComponent implements OnChanges, AfterContentInit {
   @Input()
   layout: string = 'grid';
 

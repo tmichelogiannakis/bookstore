@@ -10,6 +10,7 @@ import { BookListComponent } from './pages/book-list/book-list.component';
 import { CanDeactivateBookGuard } from './guards/can-deactivate-book.guard';
 import { ViewBookComponent } from './pages/view-book/view-book.component';
 import { AddEditBookComponent } from './pages/add-edit-book/add-edit-book.component';
+import { BookTileComponent } from './components/book-tile/book-tile.component';
 
 const routes: Route[] = [
   {
@@ -53,7 +54,7 @@ const routes: Route[] = [
 ];
 
 @NgModule({
-  declarations: [BooksComponent, BookListComponent, ViewBookComponent, AddEditBookComponent],
+  declarations: [BooksComponent, BookListComponent, ViewBookComponent, AddEditBookComponent, BookTileComponent],
   imports: [SharedModule, RouterModule.forChild(routes)]
 })
 export class BooksModule {}

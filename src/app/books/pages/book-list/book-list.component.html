@@ -68,26 +68,13 @@
     </ng-template>
     <ng-template let-book pTemplate="gridItem">
       <div class="p-col-12 p-sm-6 p-md-4 p-py-2">
-        <article class="p-grid p-nogutter tile-book">
-          <div class="p-col-fixed">
-            <img [src]="book.image || './assets/images/missing-image.png'" [alt]="book.title" class="tile-book-image" />
-          </div>
-          <div class="p-col">
-            <div class="tile-book-content">
-              <div>
-                <h4 class="tile-book-title">{{ book.title }}</h4>
-                <p class="tile-book-author">by {{ book.author | array: ', ' }}</p>
-              </div>
-              <div class="p-grid p-nogutter p-justify-end">
-                <div>
-                  <a pButton class="ui-button-sm" [routerLink]="[book.isbn]" [label]="'Edit'"></a>
-                  <a pButton class="ui-button-sm" [routerLink]="[book.isbn, 'view']" [label]="'View'"></a>
-                  <a pButton class="ui-button-sm ui-button-danger" (click)="confirmDeletion(book)" [label]="'Delete'"></a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </article>
+        <app-book-tile [book]="book">
+          <ng-template pTemplate="actions">
+            <a pButton class="ui-button-sm" [routerLink]="[book.isbn]" [label]="'Edit'"></a>
+            <a pButton class="ui-button-sm" [routerLink]="[book.isbn, 'view']" [label]="'View'"></a>
+            <a pButton class="ui-button-sm ui-button-danger" (click)="confirmDeletion(book)" [label]="'Delete'"></a>
+          </ng-template>
+        </app-book-tile>        
       </div>
     </ng-template>
   </app-dataview>
