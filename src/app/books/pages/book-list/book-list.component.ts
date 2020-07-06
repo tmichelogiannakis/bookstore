@@ -17,6 +17,8 @@ export class BookListComponent implements OnInit, OnDestroy {
   private unsubscribe: Subject<void> = new Subject();
   books: Book[];
   genreSelectItems$: Observable<SelectItem[]>;
+  publishedBound: number[];
+  authors: string[];
 
   globalFilter: {
     fields: string[];
@@ -36,8 +38,13 @@ export class BookListComponent implements OnInit, OnDestroy {
       value: null,
       matchMode: 'in'
     },
-    global: {
-      value: null
+    published: {
+      value: [],
+      matchMode: '<>'
+    },
+    author: {
+      value: null,
+      matchMode: 'in'
     }
   };
 
@@ -49,7 +56,10 @@ export class BookListComponent implements OnInit, OnDestroy {
         takeUntil(this.unsubscribe),
         map((data) => data.books)
       )
-      .subscribe((books) => (this.books = books));
+      .subscribe((books: Book[]) => {
+        this.books = books;
+        this.calculateFilters(books);
+      });
 
     this.genreSelectItems$ = this.route.parent!.data.pipe(
       takeUntil(this.unsubscribe),
@@ -63,8 +73,24 @@ export class BookListComponent implements OnInit, OnDestroy {
     this.unsubscribe.complete();
   }
 
-  filter(event: any) {
+  filter(event: any): void {
     this.filters = { ...this.filters };
+  }
+
+  calculateFilters(books: Book[]): void {
+    const publishedYears: number[] = books.map((book) => book.published as number);
+    const min = Math.min(...publishedYears);
+    const max = Math.max(...publishedYears);
+    this.publishedBound = [min, max];
+    this.filters['published'].value = [min, max];
+    this.authors = books.reduce((acc: string[], book) => {
+      const author = book.author;
+      if (!Array.isArray(author)) {
+        return [...acc, author];
+      }
+      return [...acc, ...author];
+      // return [...acc];
+    }, []);
   }
 
   confirmDeletion(book: Book): void {

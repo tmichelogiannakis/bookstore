@@ -8,7 +8,7 @@ const book: Book = {
   title: 'title1',
   subtitle: 'subtitle1',
   author: 'author1',
-  published: new Date().toISOString(),
+  published: 1999,
   publisher: 'publisher1',
   pages: 111,
   description: 'description1',
