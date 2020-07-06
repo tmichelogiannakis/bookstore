@@ -18,7 +18,7 @@ export class BookListComponent implements OnInit, OnDestroy {
   books: Book[];
   genreSelectItems$: Observable<SelectItem[]>;
   publishedBound: number[];
-  authors: string[];
+  authors: SelectItem[];
 
   globalFilter: {
     fields: string[];
@@ -83,14 +83,17 @@ export class BookListComponent implements OnInit, OnDestroy {
     const max = Math.max(...publishedYears);
     this.publishedBound = [min, max];
     this.filters['published'].value = [min, max];
-    this.authors = books.reduce((acc: string[], book) => {
-      const author = book.author;
-      if (!Array.isArray(author)) {
-        return [...acc, author];
-      }
-      return [...acc, ...author];
-      // return [...acc];
-    }, []);
+    this.authors = books
+      .reduce((acc: string[], book) => {
+        const author = book.author;
+        if (!Array.isArray(author)) {
+          return [...acc, author];
+        }
+        return [...acc, ...author];
+      }, [])
+      .filter((item, index, arr) => arr.indexOf(item) == index)
+      .map((a) => ({ label: a, value: a }));
+    this.authors = [{ label: 'Author', value: '' }, ...this.authors];
   }
 
   confirmDeletion(book: Book): void {

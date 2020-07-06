@@ -4,7 +4,6 @@
     <a pButton [icon]="'pi pi-plus'" label="New book" [routerLink]="['add']"></a>
   </div>
 </div>
-<pre>{{ filters | json }}</pre>
 <div class="filter-area" *ngIf="books">
   <div class="p-grid p-align-center">
     <div class="p-col">
@@ -17,7 +16,7 @@
         </div>
       </div>
     </div>
-    <div class="p-col-2">
+    <div class="p-col">
       <ng-container *ngIf="genreSelectItems$ | async as genreSelectItems">
         <p-multiSelect
           (onChange)="filter($event)"
@@ -32,7 +31,10 @@
         ></p-multiSelect>
       </ng-container>
     </div>
-    <div class="p-col-2">
+    <div class="p-col">
+      <p-dropdown (onChange)="filter($event)" [(ngModel)]="filters.author.value" [options]="authors" [inputId]="'authors'"></p-dropdown>
+    </div>
+    <div class="p-col">
       <div class="p-px-3">
         <div class="text-center p-pb-1"><label for="slider">Published Year</label></div>
         <p-slider
