@@ -9,6 +9,10 @@ import { InputTextModule } from 'primeng/inputtext';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
+
+
+import { SliderModule } from 'primeng/slider';
+
 const modules = [
   ButtonModule,
   BlockUIModule,
@@ -18,7 +22,8 @@ const modules = [
   InputTextModule,
   InputTextareaModule,
   MultiSelectModule,
-  ProgressSpinnerModule
+  ProgressSpinnerModule,
+  SliderModule
 ];
 
 @NgModule({
