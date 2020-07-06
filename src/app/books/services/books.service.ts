@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Book } from '../../core/models/book.model';
+import { map } from 'rxjs/operators';
+import { Book, formatBook } from '../../core/models/book.model';
 import { BookGenre } from '../../core/models/book-genre.model';
 
 @Injectable({
@@ -16,7 +17,7 @@ export class BooksService {
   constructor(private http: HttpClient) {}
 
   getAllBooks(): Observable<Book[]> {
-    return this.http.get<Book[]>(this.endpoints.books);
+    return this.http.get<Book[]>(this.endpoints.books).pipe(map((books) => books.map(formatBook)));
   }
 
   createBook(payload: Book): Observable<Book> {
@@ -32,11 +33,11 @@ export class BooksService {
   }
 
   getBook(isbn: string): Observable<Book> {
-    return this.http.get<Book>(`${this.endpoints.books}/${isbn}`);
+    return this.http.get<Book>(`${this.endpoints.books}/${isbn}`).pipe(map(formatBook));
   }
 
   getSimilarBooks(isbn: string): Observable<Book[]> {
-    return this.http.get<Book[]>(`${this.endpoints.books}/${isbn}/similar`);
+    return this.http.get<Book[]>(`${this.endpoints.books}/${isbn}/similar`).pipe(map((books) => books.map(formatBook)));
   }
 
   getAllBookGenres(): Observable<BookGenre[]> {

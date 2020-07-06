@@ -83,6 +83,12 @@ export class DataviewComponent implements OnChanges, AfterContentInit {
               }
             });
             break;
+          case '<>':
+            this.filteredItems = this.filteredItems.filter((item) => {
+              const prop = item[field];
+              return prop >= value[0] && prop <= value[1];
+            });
+            break;
           default:
         }
       }

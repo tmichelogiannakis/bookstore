@@ -5,11 +5,13 @@
 @import 'chips';
 @import 'dataview';
 @import 'dialog';
+@import 'dropdown';
 @import 'flex';
 @import 'inputtext';
 @import 'inputtextarea';
 @import 'menu';
 @import 'multiselect';
+@import 'slider';
 
 *,
 *::before,
@@ -19,4 +21,8 @@
 
 body {
   background-color: #faf9f8;
+}
+
+.text-center {
+  text-align: center;
 }

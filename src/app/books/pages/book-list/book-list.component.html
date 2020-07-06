@@ -4,9 +4,9 @@
     <a pButton [icon]="'pi pi-plus'" label="New book" [routerLink]="['add']"></a>
   </div>
 </div>
-<div class="filter-area">
+<div class="filter-area" *ngIf="books">
   <div class="p-grid p-align-center">
-    <div class="p-col-12 p-sm-6 p-md-4">
+    <div class="p-col">
       <div class="p-grid p-align-center">
         <div class="p-col-fixed">
           <label for="search"> <i class="pi pi-filter"></i></label>
@@ -16,7 +16,7 @@
         </div>
       </div>
     </div>
-    <div class="p-col-12 p-sm-6 p-md-2">
+    <div class="p-col">
       <ng-container *ngIf="genreSelectItems$ | async as genreSelectItems">
         <p-multiSelect
           (onChange)="filter($event)"
@@ -30,6 +30,26 @@
           [showToggleAll]="false"
         ></p-multiSelect>
       </ng-container>
+    </div>
+    <div class="p-col">
+      <p-dropdown (onChange)="filter($event)" [(ngModel)]="filters.author.value" [options]="authors" [inputId]="'authors'"></p-dropdown>
+    </div>
+    <div class="p-col">
+      <div class="p-px-3">
+        <div class="text-center p-pb-1"><label for="slider">Published Year</label></div>
+        <p-slider
+          #slider
+          [(ngModel)]="filters.published.value"
+          [range]="true"
+          [min]="publishedBound[0]"
+          [max]="publishedBound[1]"
+          (onChange)="filter($event)"
+        ></p-slider>
+        <div class="ui-slider-labels">
+          <span class="ui-slider-label" [ngStyle]="{ left: slider.rangeStartLeft }">{{ filters.published.value[0] }}</span>
+          <span class="ui-slider-label" [ngStyle]="{ left: slider.rangeEndLeft }">{{ filters.published.value[1] }}</span>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -74,7 +94,7 @@
             <a pButton class="ui-button-sm" [routerLink]="[book.isbn, 'view']" [label]="'View'"></a>
             <a pButton class="ui-button-sm ui-button-danger" (click)="confirmDeletion(book)" [label]="'Delete'"></a>
           </ng-template>
-        </app-book-tile>        
+        </app-book-tile>
       </div>
     </ng-template>
   </app-dataview>

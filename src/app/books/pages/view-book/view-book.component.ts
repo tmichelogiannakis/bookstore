@@ -36,14 +36,7 @@ export class ViewBookComponent implements OnInit, OnDestroy {
         takeUntil(this.unsubscribe)
       )
       .subscribe((book: Book) => {
-        // published is either numeric (year) or string (date)
-        // if not numeric take the Year part
-        let published = book.published;
-        if (isNaN(Number(published))) {
-          published = new Date(published).getFullYear();
-        }
-
-        this.book = { ...book, published };
+        this.book = book;
         this.breadcrumbService.pushItem({
           id: 'books-view',
           label: book.title,
@@ -56,5 +49,13 @@ export class ViewBookComponent implements OnInit, OnDestroy {
     this.breadcrumbService.removeItem('books-view');
     this.unsubscribe.next();
     this.unsubscribe.complete();
+  }
+
+  categoryTrackBy(index: number, item: string) {
+    return item;
+  }
+
+  booksTrackBy(index: number, item: Book) {
+    return item.isbn;
   }
 }
