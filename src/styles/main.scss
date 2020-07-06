@@ -10,6 +10,7 @@
 @import 'inputtextarea';
 @import 'menu';
 @import 'multiselect';
+@import 'slider';
 
 *,
 *::before,
@@ -19,4 +20,8 @@
 
 body {
   background-color: #faf9f8;
+}
+
+.text-center {
+  text-align: center;
 }
