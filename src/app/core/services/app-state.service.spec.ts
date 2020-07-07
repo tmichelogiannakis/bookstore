@@ -14,7 +14,7 @@ describe('AppStateService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('loading$ emits the loading state that is set', () => {
+  it('loading$ should emit the loading state that is set', () => {
     let index = 0;
     const results = [false, true, false, false, true, true, false];
     service.loading$.subscribe((loading) => {

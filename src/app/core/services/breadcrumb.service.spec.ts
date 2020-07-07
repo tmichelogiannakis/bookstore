@@ -34,7 +34,7 @@ describe('BreadcrumbService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('breadcrumbItems$ emits the items that are set', () => {
+  it('breadcrumbItems$ should emits the items that are set', () => {
     let index = 0;
     const results = [
       [homeMenuItem],

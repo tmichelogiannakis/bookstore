@@ -58,7 +58,7 @@ describe('HeaderComponent', () => {
     hostFixture.detectChanges();
     expect(nestedComponent.sidebarOpened).toBe(true);
 
-    // set sidebaOpened to false on host component
+    // set sidebaOpened to false on host component and check on if false on test component
     hostComponent.setSidebarOpened(false);
     hostFixture.detectChanges();
     expect(nestedComponent.sidebarOpened).toBe(false);
