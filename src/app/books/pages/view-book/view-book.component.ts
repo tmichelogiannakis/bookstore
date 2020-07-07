@@ -56,6 +56,7 @@ export class ViewBookComponent implements OnInit, OnDestroy {
   }
 
   booksTrackBy(index: number, item: Book) {
+    console.log({ item });
     return item.isbn;
   }
 }
