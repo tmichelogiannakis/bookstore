@@ -32,7 +32,7 @@
       </ng-container>
     </div>
     <div class="p-col">
-      <p-dropdown (onChange)="filter($event)" [(ngModel)]="filters.author.value" [options]="authors" [inputId]="'authors'"></p-dropdown>
+      <p-dropdown (onChange)="filter($event)" [(ngModel)]="filters.author.value" [options]="authorSelectItems" [inputId]="'authors'"></p-dropdown>
     </div>
     <div class="p-col">
       <div class="p-px-3">
