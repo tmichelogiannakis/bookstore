@@ -1,4 +1,4 @@
-<article class="p-grid p-nogutter tile-book">
+<article class="p-grid p-nogutter tile-book" *ngIf="book">
   <div class="p-col-fixed">
     <img [src]="book.image || './assets/images/missing-image.png'" [alt]="book.title" class="tile-book-image" />
   </div>

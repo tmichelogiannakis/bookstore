@@ -54,7 +54,7 @@ describe('BookGenresResolver', () => {
       expect(data).toEqual(bookGenres);
     });
 
-    const req = httpMock.expectOne(`${booksService.endpoints.books}`);
+    const req = httpMock.expectOne(`${booksService.endpoints.booksGenres}`);
     expect(req.request.method).toBe('GET');
     req.flush(bookGenres);
   });

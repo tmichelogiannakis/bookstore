@@ -12,9 +12,9 @@ export class BookTileComponent implements AfterContentInit {
   @Input()
   book: Book;
 
-  @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+  @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
 
-  actionsTemplate: TemplateRef<any>;
+  actionsTemplate: TemplateRef<PrimeTemplate>;
 
   constructor() {}
 
