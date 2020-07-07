@@ -11,10 +11,6 @@ import { By } from '@angular/platform-browser';
 class HostComponent {
   sidebarOpened: boolean = true;
 
-  onToggleSidebar() {
-    this.sidebarOpened = !this.sidebarOpened;
-  }
-
   setSidebarOpened(value: boolean) {
     this.sidebarOpened = value;
   }
