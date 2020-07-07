@@ -11,7 +11,7 @@ import { AppStateService } from './core/services/app-state.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  sideBarOpened: boolean = true;
+  sidebarOpened: boolean = true;
 
   loading$: Observable<boolean>;
 
@@ -25,6 +25,6 @@ export class AppComponent implements OnInit {
   }
 
   onToggleSidebar() {
-    this.sideBarOpened = !this.sideBarOpened;
+    this.sidebarOpened = !this.sidebarOpened;
   }
 }

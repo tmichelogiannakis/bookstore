@@ -27,14 +27,14 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 })
 export class HeaderComponent {
   @Input()
-  opened: boolean;
+  sidebarOpened: boolean;
 
   @Output()
   toggleSidebar: EventEmitter<void> = new EventEmitter();
 
   constructor() {}
 
-  onClick() {
+  onClick(): void {
     this.toggleSidebar.emit();
   }
 }

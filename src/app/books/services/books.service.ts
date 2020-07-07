@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Book, formatBook } from '../../core/models/book.model';
+import { Book } from '../../core/models/book.model';
 import { BookGenre } from '../../core/models/book-genre.model';
 
 @Injectable({
@@ -17,7 +17,7 @@ export class BooksService {
   constructor(private http: HttpClient) {}
 
   getAllBooks(): Observable<Book[]> {
-    return this.http.get<Book[]>(this.endpoints.books).pipe(map((books) => books.map(formatBook)));
+    return this.http.get<Book[]>(this.endpoints.books).pipe(map((books) => books.map(this.formatBook)));
   }
 
   createBook(payload: Book): Observable<Book> {
@@ -33,14 +33,24 @@ export class BooksService {
   }
 
   getBook(isbn: string): Observable<Book> {
-    return this.http.get<Book>(`${this.endpoints.books}/${isbn}`).pipe(map(formatBook));
+    return this.http.get<Book>(`${this.endpoints.books}/${isbn}`).pipe(map(this.formatBook));
   }
 
   getSimilarBooks(isbn: string): Observable<Book[]> {
-    return this.http.get<Book[]>(`${this.endpoints.books}/${isbn}/similar`).pipe(map((books) => books.map(formatBook)));
+    return this.http.get<Book[]>(`${this.endpoints.books}/${isbn}/similar`).pipe(map((books) => books.map(this.formatBook)));
   }
 
   getAllBookGenres(): Observable<BookGenre[]> {
     return this.http.get<BookGenre[]>(this.endpoints.booksGenres);
+  }
+
+  // published is either numeric (year) or string (date)
+  // if not numeric take the Year part
+  private formatBook(book: Book): Book {
+    let published = book.published;
+    if (isNaN(Number(published))) {
+      published = new Date(published).getFullYear();
+    }
+    return { ...book, published };
   }
 }
