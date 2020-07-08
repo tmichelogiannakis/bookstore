@@ -111,7 +111,7 @@ export class HttpMockRequestInterceptor implements HttpInterceptor {
 
         return next.handle(request);
       }),
-      delay(500)
+      delay(200)
     );
   }
 
