@@ -37,11 +37,13 @@ export class DataviewComponent implements OnChanges, AfterContentInit {
     value: string;
   };
 
+  // filters for fields
+  // only 'in' and '<>' matchmodes implemented
   @Input()
   filters: {
     [field: string]: {
       value: any;
-      matchMode?: string;
+      matchMode: 'in' | '<>';
     };
   };
 
@@ -51,6 +53,7 @@ export class DataviewComponent implements OnChanges, AfterContentInit {
 
   gridItemTemplate: TemplateRef<any>;
 
+  // selected template to display
   itemTemplate: TemplateRef<any>;
 
   filteredItems: any[];
@@ -58,41 +61,28 @@ export class DataviewComponent implements OnChanges, AfterContentInit {
   constructor() {}
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.filteredItems = [...this.items];
-
-    if (this.globalFilter) {
-      const { value, fields } = this.globalFilter;
-      if (value && fields) {
-        this.filteredItems = this.filteredItems.filter((item) => {
-          return fields.some((field) => item[field].toLowerCase().includes(value.toLowerCase()));
-        });
-      }
+    if ('layout' in changes) {
+      this.updateItemTemplate();
     }
 
-    Object.entries(this.filters).forEach(([field, metadata]) => {
-      const { value, matchMode } = metadata;
-      if (!isEmptyInputValue(value) && matchMode) {
-        switch (matchMode) {
-          case 'in':
-            this.filteredItems = this.filteredItems.filter((item) => {
-              const prop = item[field];
-              if (Array.isArray(prop)) {
-                return prop.some((i) => value.includes(i));
-              } else {
-                return value.includes(prop);
-              }
-            });
-            break;
-          case '<>':
-            this.filteredItems = this.filteredItems.filter((item) => {
-              const prop = item[field];
-              return prop >= value[0] && prop <= value[1];
-            });
-            break;
-          default:
+    if ('items' in changes || 'globalFilter' in changes || 'filters' in changes) {
+      let items = [...this.items];
+      if (this.globalFilter) {
+        const { value, fields } = this.globalFilter;
+        if (value && fields) {
+          items = this.evaluateGlobalFilter(value, fields, items);
         }
       }
-    });
+
+      Object.entries(this.filters).forEach(([field, metadata]) => {
+        const { value, matchMode } = metadata;
+        if (!isEmptyInputValue(value) && matchMode) {
+          items = this.evaluateFilter(value, field, matchMode, items);
+        }
+      });
+
+      this.filteredItems = [...items];
+    }
   }
 
   ngAfterContentInit() {
@@ -123,8 +113,36 @@ export class DataviewComponent implements OnChanges, AfterContentInit {
     }
   }
 
+  // toggle layouts
   changeLayout(layout: string) {
     this.layout = layout;
     this.updateItemTemplate();
+  }
+
+  private evaluateGlobalFilter(value: string, fields: string[], items: any[]) {
+    return items.filter((item) => {
+      return fields.some((field) => item[field].toLowerCase().includes(value.toLowerCase()));
+    });
+  }
+
+  private evaluateFilter(value: string, field: string, matchMode: 'in' | '<>', items: any[]) {
+    switch (matchMode) {
+      case 'in':
+        return items.filter((item) => {
+          const prop = item[field];
+          if (Array.isArray(prop)) {
+            return prop.some((i) => value.includes(i));
+          } else {
+            return value.includes(prop);
+          }
+        });
+      case '<>':
+        return items.filter((item) => {
+          const prop = item[field];
+          return prop >= value[0] && prop <= value[1];
+        });
+      default:
+        return items;
+    }
   }
 }

@@ -1,18 +1,18 @@
-import { async, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ActivatedRoute } from '@angular/router';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { of } from 'rxjs';
-import { BookListComponent } from './book-list.component';
-import { Book } from '../../../core/models/book.model';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { BookGenre } from '../../../core/models/book-genre.model';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { By } from '@angular/platform-browser';
 import { ConfirmDialog } from 'primeng/confirmDialog';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MultiSelect } from 'primeng/multiselect';
 import { Dropdown } from 'primeng/dropdown';
 import { Slider } from 'primeng/slider';
+import { of } from 'rxjs';
+import { BookListComponent } from './book-list.component';
+import { Book } from '../../../core/models/book.model';
+import { BookGenre } from '../../../core/models/book-genre.model';
 
 const books: Book[] = [
   {
@@ -149,5 +149,9 @@ describe('BookListComponent', () => {
     component.confirmDeletion(books[0]);
     const confirmDialog: ConfirmDialog = fixture.debugElement.query(By.directive(ConfirmDialog)).componentInstance;
     expect(confirmDialog.visible).toBeTrue();
+  });
+
+  it('trackByFn should return book isbn', () => {
+    expect(component.trackByFn(0, books[0])).toBe(books[0].isbn);
   });
 });

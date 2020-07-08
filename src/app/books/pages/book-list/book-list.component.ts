@@ -20,6 +20,7 @@ export class BookListComponent implements OnInit, OnDestroy {
   publishedBound: number[];
   authorSelectItems: SelectItem[];
 
+  // search only title
   globalFilter: {
     fields: string[];
     value: string;
@@ -28,10 +29,12 @@ export class BookListComponent implements OnInit, OnDestroy {
     value: ''
   };
 
+  // filters for fields
+  // only 'in' and '<>' matchmodes implemented
   filters: {
     [field: string]: {
       value: any;
-      matchMode?: string;
+      matchMode: 'in' | '<>';
     };
   } = {
     categories: {
@@ -48,11 +51,7 @@ export class BookListComponent implements OnInit, OnDestroy {
     }
   };
 
-  constructor(
-    private route: ActivatedRoute,
-    private confirmationService: ConfirmationService,
-    private bookService: BooksService
-  ) {}
+  constructor(private route: ActivatedRoute, private confirmationService: ConfirmationService, private bookService: BooksService) {}
 
   ngOnInit(): void {
     this.route.data
@@ -80,6 +79,10 @@ export class BookListComponent implements OnInit, OnDestroy {
   filter(event: any): void {
     // refresh filters
     this.filters = { ...this.filters };
+  }
+
+  trackByFn(index: number, item: Book) {
+    return item.isbn;
   }
 
   confirmDeletion(book: Book): void {

@@ -95,7 +95,6 @@ export class AddEditBookComponent implements OnInit, OnDestroy, CanDeactivateGua
         takeUntil(this.unsubscribe)
       )
       .subscribe(() => {
-        this.form.reset();
         this.form.markAsPristine();
       });
 

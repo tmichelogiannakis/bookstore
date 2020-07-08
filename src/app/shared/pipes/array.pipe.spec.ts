@@ -6,7 +6,7 @@ describe('ArrayPipe', () => {
     expect(pipe).toBeTruthy();
   });
 
-  it('transform "empty" value to null', () => {
+  it('transform empty value to null', () => {
     const pipe = new ArrayPipe();
     expect(pipe.transform([], ', ')).toBeNull();
     expect(pipe.transform('', ', ')).toBeNull();

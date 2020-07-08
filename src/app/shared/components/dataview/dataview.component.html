@@ -5,7 +5,7 @@
         <div class="ui-dataview-layout-options ui-selectbutton ui-buttonset">
           <a
             tabindex="0"
-            class="ui-button ui-button-icon-only ui-state-default"
+            class="ui-button ui-button-icon-only ui-state-default ui-button-list"
             (click)="changeLayout('list')"
             (keydown.enter)="changeLayout('list')"
             [ngClass]="{ 'ui-state-active': layout === 'list' }"
@@ -14,7 +14,7 @@
             <span class="ui-button-text ui-clickable">ui-btn</span> </a
           ><a
             tabindex="0"
-            class="ui-button ui-button-icon-only ui-state-default"
+            class="ui-button ui-button-icon-only ui-state-default ui-button-grid"
             (click)="changeLayout('grid')"
             (keydown.enter)="changeLayout('grid')"
             [ngClass]="{ 'ui-state-active': layout === 'grid' }"
