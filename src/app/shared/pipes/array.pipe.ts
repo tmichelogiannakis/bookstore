@@ -1,6 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { isEmptyInputValue } from '../utils';
 
+// Pipe to display an array value as a string
+// book.author | array: ', '
 @Pipe({
   name: 'array'
 })

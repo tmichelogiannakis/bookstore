@@ -18,6 +18,8 @@ export class ImageuploadComponent implements ControlValueAccessor {
 
   imageUrl = './assets/images/missing-image.png';
 
+  maxFileSize = 262144;
+
   onChange = (value: File) => {};
 
   onTouched = () => {};
@@ -25,6 +27,7 @@ export class ImageuploadComponent implements ControlValueAccessor {
   constructor() {}
 
   writeValue(value: string): void {
+    // empty values are ignored
     if (value) {
       this.imageUrl = value;
     }
@@ -42,6 +45,7 @@ export class ImageuploadComponent implements ControlValueAccessor {
     this.disabled = isDisabled;
   }
 
+  // event from primeng fileupload component
   uploadHandler(event: { files: File[] }): void {
     // select first file
     const [file] = event.files;

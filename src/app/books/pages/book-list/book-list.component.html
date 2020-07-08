@@ -32,7 +32,12 @@
       </ng-container>
     </div>
     <div class="p-col">
-      <p-dropdown (onChange)="filter($event)" [(ngModel)]="filters.author.value" [options]="authors" [inputId]="'authors'"></p-dropdown>
+      <p-dropdown
+        (onChange)="filter($event)"
+        [(ngModel)]="filters.author.value"
+        [options]="authorSelectItems"
+        [inputId]="'authors'"
+      ></p-dropdown>
     </div>
     <div class="p-col">
       <div class="p-px-3">
@@ -55,7 +60,7 @@
 </div>
 
 <div class="p-mb-3">
-  <app-dataview [items]="books" [globalFilter]="globalFilter" [filters]="filters" [emptyMessage]="'No books found'">
+  <app-dataview [items]="books" [globalFilter]="globalFilter" [filters]="filters" [emptyMessage]="'No books found'" [trackBy]="trackByFn">
     <ng-template let-book pTemplate="listItem">
       <div class="p-col-12">
         <article class="list-item-book">

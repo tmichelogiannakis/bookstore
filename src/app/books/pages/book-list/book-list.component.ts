@@ -18,8 +18,9 @@ export class BookListComponent implements OnInit, OnDestroy {
   books: Book[];
   genreSelectItems$: Observable<SelectItem[]>;
   publishedBound: number[];
-  authors: SelectItem[];
+  authorSelectItems: SelectItem[];
 
+  // search only title
   globalFilter: {
     fields: string[];
     value: string;
@@ -28,10 +29,12 @@ export class BookListComponent implements OnInit, OnDestroy {
     value: ''
   };
 
+  // filters for fields
+  // only 'in' and '<>' matchmodes implemented
   filters: {
     [field: string]: {
       value: any;
-      matchMode?: string;
+      matchMode: 'in' | '<>';
     };
   } = {
     categories: {
@@ -58,11 +61,11 @@ export class BookListComponent implements OnInit, OnDestroy {
       )
       .subscribe((books: Book[]) => {
         this.books = books;
-        this.calculateFilters(books);
+        this.setAuthorSelectItems(books);
+        this.setPublishedBounds(books);
       });
 
     this.genreSelectItems$ = this.route.parent!.data.pipe(
-      takeUntil(this.unsubscribe),
       map((data) => data.bookGenres),
       map((bookGenres: BookGenre[]) => bookGenres.map((g) => ({ label: g.label, value: g.id })))
     );
@@ -74,26 +77,12 @@ export class BookListComponent implements OnInit, OnDestroy {
   }
 
   filter(event: any): void {
+    // refresh filters
     this.filters = { ...this.filters };
   }
 
-  calculateFilters(books: Book[]): void {
-    const publishedYears: number[] = books.map((book) => book.published as number);
-    const min = Math.min(...publishedYears);
-    const max = Math.max(...publishedYears);
-    this.publishedBound = [min, max];
-    this.filters['published'].value = [min, max];
-    this.authors = books
-      .reduce((acc: string[], book) => {
-        const author = book.author;
-        if (!Array.isArray(author)) {
-          return [...acc, author];
-        }
-        return [...acc, ...author];
-      }, [])
-      .filter((item, index, arr) => arr.indexOf(item) == index)
-      .map((a) => ({ label: a, value: a }));
-    this.authors = [{ label: 'Author', value: '' }, ...this.authors];
+  trackByFn(index: number, item: Book) {
+    return item.isbn;
   }
 
   confirmDeletion(book: Book): void {
@@ -114,5 +103,27 @@ export class BookListComponent implements OnInit, OnDestroy {
       },
       reject: () => {}
     });
+  }
+
+  private setAuthorSelectItems(books: Book[]) {
+    const authors = books
+      .reduce((acc: string[], book) => {
+        const author = book.author;
+        if (!Array.isArray(author)) {
+          return [...acc, author];
+        }
+        return [...acc, ...author];
+      }, [])
+      .filter((item, index, arr) => arr.indexOf(item) == index)
+      .map((a) => ({ label: a, value: a }));
+    this.authorSelectItems = [{ label: 'Author', value: '' }, ...authors];
+  }
+
+  private setPublishedBounds(books: Book[]): void {
+    const publishedYears: number[] = books.map((book) => book.published as number);
+    const min = Math.min(...publishedYears);
+    const max = Math.max(...publishedYears);
+    this.publishedBound = [min, max];
+    this.filters['published'].value = [min, max];
   }
 }

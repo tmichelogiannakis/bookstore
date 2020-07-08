@@ -7,10 +7,13 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { ChipsModule } from 'primeng/chips';
 import { BookGenre } from '../../../core/models/book-genre.model';
 import { ArrayPipe } from '../../../shared/pipes/array.pipe';
-import { of } from 'rxjs';
+import { of, Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ImageuploadComponent } from '../../../shared/components/form/imageupload/imageupload.component';
+import { ConfirmDialog } from 'primeng/confirmDialog';
+import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 const bookGenres: BookGenre[] = [
   {
@@ -29,7 +32,7 @@ describe('AddEditBookComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule, HttpClientTestingModule, ReactiveFormsModule, ChipsModule, MultiSelectModule],
+      imports: [RouterTestingModule, HttpClientTestingModule, ReactiveFormsModule, NoopAnimationsModule, ChipsModule, MultiSelectModule],
       providers: [
         {
           provide: ActivatedRoute,
@@ -41,7 +44,7 @@ describe('AddEditBookComponent', () => {
           } as any
         }
       ],
-      declarations: [AddEditBookComponent, ArrayPipe, ImageuploadComponent],
+      declarations: [AddEditBookComponent, ArrayPipe, ImageuploadComponent, ConfirmDialog],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
   }));
@@ -54,5 +57,18 @@ describe('AddEditBookComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('canDeactivate() should return form pristine', () => {
+    component.form.markAsPristine();
+    expect(component.canDeactivate()).toBeTrue();
+  });
+
+  it('canDeactivate() should open confirmation dialog if unsaved changes', () => {
+    component.form.markAsDirty();
+    (component.canDeactivate() as Observable<boolean>).subscribe(() => {
+      const confirmDialog: ConfirmDialog = fixture.debugElement.query(By.directive(ConfirmDialog)).componentInstance;
+      expect(confirmDialog.visible).toBeTrue();
+    });
   });
 });

@@ -2,12 +2,13 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute, NavigationEnd, Params } from '@angular/router';
 import { ConfirmationService, SelectItem } from 'primeng/api';
-import { Subject } from 'rxjs';
+import { Subject, Observable, Observer } from 'rxjs';
 import { takeUntil, filter, map } from 'rxjs/operators';
 import { CustomValidators } from '../../../shared/custom.validators';
 import { BooksService } from '../../services/books.service';
 import { BookGenre } from '../../../core/models/book-genre.model';
 import { BreadcrumbService } from '../../../core/services/breadcrumb.service';
+import { CanDeactivateGuarded } from '../../../core/models/can-deactivate-guarded';
 
 @Component({
   selector: 'app-add-edit-book',
@@ -15,7 +16,7 @@ import { BreadcrumbService } from '../../../core/services/breadcrumb.service';
   styleUrls: ['./add-edit-book.component.scss'],
   providers: [ConfirmationService]
 })
-export class AddEditBookComponent implements OnInit, OnDestroy {
+export class AddEditBookComponent implements OnInit, OnDestroy, CanDeactivateGuarded {
   private unsubscribe: Subject<void> = new Subject();
   form: FormGroup;
   isEditMode: boolean;
@@ -25,7 +26,7 @@ export class AddEditBookComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
-    public confirmationService: ConfirmationService,
+    private confirmationService: ConfirmationService,
     private booksService: BooksService,
     private breadcrumbService: BreadcrumbService
   ) {
@@ -67,6 +68,25 @@ export class AddEditBookComponent implements OnInit, OnDestroy {
     });
   }
 
+  canDeactivate() {
+    return (
+      this.form.pristine ||
+      new Observable((observer: Observer<boolean>) => {
+        this.confirmationService.confirm({
+          message: 'You have unsaved changes. Do you want to leave this page and discard your changes?',
+          accept: () => {
+            observer.next(true);
+            observer.complete();
+          },
+          reject: () => {
+            observer.next(false);
+            observer.complete();
+          }
+        });
+      })
+    );
+  }
+
   ngOnInit(): void {
     // If it is a NavigationEnd event re-initalise the component
     this.router.events
@@ -75,7 +95,6 @@ export class AddEditBookComponent implements OnInit, OnDestroy {
         takeUntil(this.unsubscribe)
       )
       .subscribe(() => {
-        this.form.reset();
         this.form.markAsPristine();
       });
 
